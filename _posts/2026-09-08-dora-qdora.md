@@ -2,7 +2,7 @@
 title: "DoRA와 QDoRA 정리: Weight Decomposition으로 LoRA의 한계와 양자화 비용 다루기"
 date: 2026-09-08 00:00:00 +0900
 last_modified_at: 2026-09-08 00:00:00 +0900
-summary: "DoRA가 weight의 magnitude와 direction을 분리해 LoRA의 표현력을 높이는 방법과, 이를 양자화 환경으로 확장한 QDoRA·DL-QAT의 차이를 정리한다."
+summary: "DoRA가 weight의 magnitude와 direction을 분리해 LoRA의 표현력을 높이는 방법과, 이를 양자화 환경으로 확장한 QDoRA를 정리한다."
 categories:
   - research
 tags:
@@ -12,26 +12,22 @@ tags:
   - DoRA
   - QDoRA
   - Quantization
-  - QAT
   - PEFT
   - Paper
-source: "arXiv:2402.09353, arXiv:2504.09223"
+source: "arXiv:2402.09353"
 ---
 
 # DoRA와 QDoRA: LoRA를 weight decomposition과 양자화로 확장하기
 
-이 글은 두 논문을 바탕으로 정리한 글이다.
+이 글은 DoRA 논문과 QDoRA의 실제 fine-tuning 구성을 바탕으로 정리한 글이다.
 
 - [DoRA: Weight-Decomposed Low-Rank Adaptation](https://arxiv.org/abs/2402.09353)
-- [DL-QAT: Weight-Decomposed Low-Rank Quantization-Aware Training for Large Language Models](https://arxiv.org/abs/2504.09223)
 
-먼저 용어를 하나 짚고 넘어가자. 두 번째 링크의 논문이 제안하는 공식 방법명은 **QDoRA가 아니라 DL-QAT**다. 실무나 커뮤니티에서 `QDoRA(Quantized DoRA)`는 보통 QLoRA처럼 양자화한 base model 위에 DoRA adapter를 학습하는 조합을 뜻한다. 반면 DL-QAT는 DoRA의 핵심 아이디어인 magnitude 분리를 양자화-aware training에 맞게 다시 설계한 방법이다.
-
-둘은 완전히 같은 방법은 아니지만, 문제의식은 이어져 있다.
+`QDoRA(Quantized DoRA)`는 보통 QLoRA처럼 양자화한 base model 위에 DoRA adapter를 학습하는 조합을 뜻한다. 즉 DoRA의 weight decomposition과 QLoRA의 메모리 절약을 함께 사용하는 방식이다.
 
 > LoRA가 학습해야 하는 weight 변화를 더 구조적으로 나누고, 그중 중요한 크기 조절을 별도로 학습하자.
 
-DoRA는 이 아이디어로 LoRA와 full fine-tuning 사이의 표현력 차이를 줄인다. QDoRA와 DL-QAT는 여기에 양자화를 결합해, 적은 메모리로 학습하면서도 최종 모델을 낮은 bit로 유지하려고 한다.
+DoRA는 이 아이디어로 LoRA와 full fine-tuning 사이의 표현력 차이를 줄인다. QDoRA는 여기에 양자화를 결합해, 적은 메모리로 DoRA adapter를 학습하려고 한다.
 
 ![DoRA의 weight decomposition 개요](/assets/images/blog/dora-overview.png)
 
@@ -177,94 +173,7 @@ QLoRA와 QDoRA의 차이는 adapter의 parameterization에 있다.
 
 다만 여기서 주의할 점이 있다. 양자화된 weight 자체는 연속적인 FP16 weight가 아니다. weight를 4-bit나 3-bit 값으로 표현하면 가능한 값이 제한되고, rounding과 clipping 오차가 생긴다. 따라서 DoRA의 magnitude를 그대로 적용한다고 해서 항상 원래 DoRA와 같은 최적화가 이루어지는 것은 아니다.
 
-이 지점에서 두 번째 논문인 DL-QAT가 등장한다.
-
-## 6. DL-QAT: DoRA 아이디어를 QAT에 맞게 다시 설계하기
-
-두 번째 논문은 양자화-aware training을 parameter-efficient하게 수행하는 방법을 제안한다. 목표는 다음과 같다.
-
-- 낮은 bit weight로 실제 inference 조건을 반영한다.
-- full-model QAT처럼 모든 weight를 학습하지 않는다.
-- DoRA처럼 weight의 크기 조절과 low-rank update를 분리한다.
-
-일반적인 양자화에서는 floating-point weight $W$를 scale $s$와 bias $b$를 사용해 quantized weight로 바꾼다.
-
-$$
-\tilde{W} = clip\left(\left\lfloor \frac{W-b}{s} \right\rceil\right)
-$$
-
-$$
-W_q = s\tilde{W}+b
-$$
-
-QAT는 forward pass에서 $W_q$를 사용하고, rounding처럼 미분하기 어려운 연산은 Straight-Through Estimator, 즉 STE로 gradient를 흘려보낸다.
-
-![DL-QAT의 weight-decomposed quantization 수식](/assets/images/blog/dlqat-weight-decomposed-quantization.png)
-
-*DL-QAT는 양자화된 LoRA weight에 quantization group별 magnitude $m$을 곱해, group-specific magnitude 학습과 정해진 quantization space 안의 weight fine-tuning을 분리한다. 출처: DL-QAT 논문 Section 3.2, Equation 6.*
-
-DL-QAT는 여기에 quantization group별 magnitude $m$을 추가한다.
-
-$$
-W_q = m \cdot (W_0 + \alpha BA)_q
-$$
-
-이 식을 두 부분으로 나누어 생각할 수 있다.
-
-1. $m$: 각 quantization group의 전체 크기를 조절
-2. $A$, $B$: 정해진 quantization space 안에서 weight를 미세 조정
-
-논문이 제안하는 학습 흐름은 다음과 같다.
-
-```text
-1. s와 b로 초기 quantization space를 정한다.
-2. 초기 단계에서 s와 b를 학습해 양자화 범위를 안정화한다.
-3. s와 b를 고정한다.
-4. group별 magnitude m과 LoRA A/B를 학습한다.
-5. forward에서는 계속 quantized weight를 사용한다.
-```
-
-여기서 `group-specific magnitude`가 DoRA의 magnitude vector와 대응한다. 다만 일반 DoRA처럼 각 column weight를 직접 스케일하는 것이 아니라, 양자화 group 단위로 스케일을 학습한다. 양자화된 공간에 맞게 magnitude의 자유도를 줄인 셈이다.
-
-## 7. QDoRA와 DL-QAT는 어떻게 다른가?
-
-둘은 관련 있지만 같은 이름의 동일한 알고리즘으로 보면 안 된다.
-
-| 구분 | QDoRA | DL-QAT |
-| --- | --- | --- |
-| 기본 아이디어 | 양자화된 base model + DoRA adapter | weight-decomposed low-rank QAT |
-| 양자화 방식 | 보통 QLoRA 계열의 4-bit base model | forward에서 quantization을 시뮬레이션하고 QAT 수행 |
-| 학습 대상 | DoRA magnitude와 low-rank direction | group magnitude $m$과 LoRA $A,B$ |
-| 목적 | 낮은 메모리로 DoRA fine-tuning | 낮은 bit inference weight를 직접 고려하며 QAT |
-| 양자화 범위 | 구현과 설정에 따라 다름 | 초기 scale/bias로 정한 quantization space를 사용 |
-| 논문 공식 명칭 | 커뮤니티·구현에서 쓰이는 조합명 | DL-QAT |
-
-실무적으로는 다음처럼 이해하면 편하다.
-
-> QDoRA는 “양자화된 모델 위에서 DoRA를 학습하는 큰 범주의 조합”이고, DL-QAT는 “DoRA의 weight decomposition 관점을 양자화-aware training의 최적화 문제에 맞게 구체화한 논문 방법”이다.
-
-DoRA 논문 자체도 결론 부분에서 QDoRA/FSDP 구현과 실험을 언급한다. 따라서 QDoRA는 DoRA와 양자화를 연결하는 실용적인 방향이고, DL-QAT는 그 연결을 quantization space와 group magnitude 관점에서 더 명시적으로 다룬 후속 접근으로 볼 수 있다.
-
-## 8. DL-QAT 실험에서 보이는 효과
-
-DL-QAT 논문은 LLaMA와 LLaMA2 모델에 대해 group-wise와 channel-wise 양자화를 평가한다.
-
-LLaMA-7B, group size 128의 weight-only quantization 결과에서 다음과 같은 평균 점수를 보고한다.
-
-| 방법 | bit | MMLU 0-shot | Common Sense 평균 |
-| --- | ---: | ---: | ---: |
-| QA-LoRA | 4 | 37.9 | 60.8 |
-| DL-QAT | 4 | 40.5 | 63.4 |
-| QA-LoRA | 3 | 32.2 | 59.3 |
-| DL-QAT | 3 | 36.4 | 61.1 |
-
-논문은 LLaMA-7B 3-bit 설정에서 QA-LoRA보다 MMLU zero-shot 정확도가 4.2% 높았다고 설명한다. LLaMA2-7B 4-bit per-channel 설정에서는 common-sense QA 평균이 QA-LoRA보다 5.5% 높았다.
-
-메모리 측면에서 DL-QAT는 quantization parameter를 초기화한 뒤 $m,A,B$만 학습한다. 논문 표에 따르면 LLaMA-7B의 channel-wise 설정에서 학습 파라미터는 약 1M, GPU memory는 약 41GB였다. LLaMA-13B에서는 약 2M 학습 파라미터와 약 65GB GPU memory를 사용했다.
-
-다만 이 수치는 AMD MI250, batch size 16, quantization simulation이라는 특정 실험 환경의 결과다. 다른 GPU, kernel, optimizer, sequence length, batch size에서는 그대로 재현된다고 보장할 수 없다.
-
-## 9. 세 방법의 차이를 한 번에 보기
+## 6. DoRA와 QDoRA의 차이를 한 번에 보기
 
 ```text
                  base weight        학습하는 것              배포 weight
@@ -274,7 +183,6 @@ LoRA             FP16/BF16 고정      A, B                     W0 + BA
 DoRA             FP16/BF16 고정      m, A, B                  m × normalize(W0 + BA)
 QLoRA            4-bit 고정          고정밀 A, B               양자화 base + adapter
 QDoRA            4-bit 고정          m, A, B                  양자화 base + DoRA 방식
-DL-QAT           quantized forward  m, A, B (+ 초기 s, b)    낮은 bit weight를 고려한 모델
 ```
 
 가장 큰 차이는 **무엇을 고정하고, 어떤 공간에서 update를 학습하는가**다.
@@ -282,9 +190,8 @@ DL-QAT           quantized forward  m, A, B (+ 초기 s, b)    낮은 bit weight
 - LoRA는 원래 weight 공간에서 low-rank 변화량을 학습한다.
 - DoRA는 weight 공간을 magnitude와 direction으로 나눈다.
 - QLoRA와 QDoRA는 base weight를 낮은 bit로 저장해 메모리를 줄인다.
-- DL-QAT는 forward부터 양자화된 weight를 사용하면서, group magnitude와 low-rank update를 함께 최적화한다.
 
-## 10. 언제 어떤 방법을 선택할까?
+## 7. 언제 어떤 방법을 선택할까?
 
 ### base model을 충분한 GPU 메모리로 학습할 수 있다면
 
@@ -293,10 +200,6 @@ LoRA와 DoRA를 비교해볼 수 있다. 같은 rank와 학습 budget에서 DoRA
 ### 학습 메모리가 부족하다면
 
 QLoRA 또는 QDoRA가 현실적인 선택이다. base model을 4-bit로 두고 adapter만 학습하므로 single GPU fine-tuning의 진입 장벽이 낮아진다.
-
-### 최종 배포도 낮은 bit가 중요하다면
-
-단순히 양자화된 base model 위에서 adapter를 학습하는 것만으로는 충분하지 않을 수 있다. adapter를 merge했을 때 다시 고정밀 weight가 되거나, 양자화 오차가 downstream task 성능을 크게 떨어뜨릴 수 있기 때문이다. 이런 경우 QAT 계열, 특히 DL-QAT와 같은 quantization-aware 접근을 검토할 수 있다.
 
 ### 정확한 재현성이 중요하다면
 
@@ -311,7 +214,7 @@ QLoRA 또는 QDoRA가 현실적인 선택이다. base model을 4-bit로 두고 a
 
 같은 `QDoRA`라는 이름을 사용해도 이 설정들이 다르면 메모리 사용량과 성능이 크게 달라질 수 있다.
 
-## 11. 한계와 주의점
+## 8. 한계와 주의점
 
 ### DoRA가 항상 LoRA보다 좋은 것은 아니다
 
@@ -323,11 +226,7 @@ QDoRA는 adapter의 표현력을 높여도 base model의 양자화 오차 자체
 
 ### QDoRA라는 이름은 하나의 표준 알고리즘을 뜻하지 않는다
 
-어떤 구현은 QLoRA 위에 DoRA만 추가하고, 어떤 구현은 FSDP와 함께 사용하며, 어떤 구현은 QAT까지 포함한다. 따라서 논문이나 코드에서 `QDoRA`를 봤다면 quantization 방식과 학습 대상 파라미터를 함께 확인해야 한다.
-
-### DL-QAT의 실험은 simulation 환경이다
-
-DL-QAT 논문은 학습 중 learnable parameter를 bf16으로 표현하고 inference에서 quantized weight를 dequantize해 계산하는 실험을 수행한다. 실제 하드웨어에서의 latency와 memory bandwidth 이점은 사용하는 kernel과 runtime에 따라 달라질 수 있다.
+어떤 구현은 QLoRA 위에 DoRA만 추가하고, 어떤 구현은 FSDP와 함께 사용한다. 따라서 논문이나 코드에서 `QDoRA`를 봤다면 quantization 방식과 학습 대상 파라미터를 함께 확인해야 한다.
 
 ## 내가 이해한 핵심
 
@@ -344,23 +243,22 @@ DoRA = weight의 크기는 따로 조절하고,
        방향 변화만 low-rank로 학습하기
 ```
 
-QDoRA는 이 구조를 양자화된 base model에 적용해 메모리를 줄이는 실용적인 조합이다. DL-QAT는 더 구체적으로 양자화 공간을 먼저 정하고, 각 group의 magnitude와 low-rank update를 분리해 학습한다.
+QDoRA는 이 구조를 양자화된 base model에 적용해 메모리를 줄이는 실용적인 조합이다. 따라서 적은 메모리로 DoRA의 magnitude와 direction 분해를 활용할 수 있다.
 
-결국 세 방법의 흐름은 다음과 같다.
+결국 흐름은 다음과 같다.
 
 ```text
 LoRA  → low-rank update
 DoRA  → magnitude + low-rank direction
-QDoRA/DL-QAT → 위 구조 + low-bit quantization
+QDoRA → DoRA + low-bit quantized base model
 ```
 
 한 줄로 요약하면 다음과 같다.
 
-> DoRA는 LoRA가 weight의 크기와 방향을 한 번에 학습하며 생기는 제약을 분리해 완화하고, QDoRA와 DL-QAT는 그 아이디어를 낮은 bit의 메모리·배포 제약 안으로 가져온 방법이다.
+> DoRA는 LoRA가 weight의 크기와 방향을 한 번에 학습하며 생기는 제약을 분리해 완화하고, QDoRA는 이 구조를 양자화된 base model 위에서 사용할 수 있게 만든 조합이다.
 
 ## 참고 자료
 
 - Shih-Yang Liu et al., [DoRA: Weight-Decomposed Low-Rank Adaptation](https://arxiv.org/abs/2402.09353), ICML 2024.
-- Wenjin Ke et al., [DL-QAT: Weight-Decomposed Low-Rank Quantization-Aware Training for Large Language Models](https://arxiv.org/abs/2504.09223).
 - [NVlabs/DoRA 공식 구현](https://github.com/NVlabs/DoRA)
 - [Answer.AI의 FSDP QDoRA 글](https://www.answer.ai/posts/2024-04-26-fsdp-qdora-llama3.html)
