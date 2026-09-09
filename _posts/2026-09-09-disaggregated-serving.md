@@ -44,6 +44,10 @@ Request -> Router -> [ Prefill worker ]
                        [ Decode worker ] -> Response
 ```
 
+![통합형 LLM 서빙과 Prefill·Decode 분리형 서빙 아키텍처 비교](/assets/images/blog/disaggregated-serving-architecture.svg)
+
+*통합형에서는 하나의 GPU pool이 prefill과 decode를 번갈아 처리한다. 분리형에서는 전용 pool 사이로 KV cache를 전달하고 각 단계를 독립적으로 확장한다. 직접 만든 개념도.*
+
 한 줄로 요약하면 다음과 같다.
 
 > Disaggregated Serving은 model을 쪼개는 기술이 아니라, 한 요청의 서로 다른 실행 단계를 분리해 각각 최적화하는 serving 아키텍처다.
@@ -102,6 +106,10 @@ Scheduler가 chunked prefill, continuous batching, priority policy를 사용하�
 Prefill을 크게 실행 -> compute 효율 증가, decode ITL 악화 가능
 Decode를 자주 실행  -> streaming 안정, prefill TTFT·throughput 악화 가능
 ```
+
+![통합형과 분리형 LLM 서빙의 GPU utilization 패턴 개념도](/assets/images/blog/disaggregated-serving-gpu-utilization.svg)
+
+*통합형에서는 긴 prefill이 decode scheduling과 간섭할 수 있다. 역할별 pool을 분리하면 각 workload에 맞춰 GPU를 배치할 수 있다. 실제 utilization은 model, batch, traffic, scheduler에 따라 달라지는 개념도다.*
 
 Scaling도 비효율적일 수 있다. 입력은 길고 출력은 짧은 workload에서는 prefill capacity가 더 필요하다. 짧은 질문에 긴 답을 만드는 workload에서는 decode capacity가 더 필요하다. 하나의 pool만 사용하면 부족한 단계 하나를 늘리기 위해 다른 단계의 자원까지 같은 비율로 추가해야 한다.
 
