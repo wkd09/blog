@@ -29,6 +29,10 @@ LLM inference server는 하나의 요청을 받아 prompt를 읽고, 첫 token�
 
 [NVIDIA의 설명](https://www.nvidia.com/en-us/glossary/disaggregated-serving/)처럼 **Disaggregated Serving**은 두 단계를 전용 GPU 또는 worker pool로 분리하고, 각 단계에 맞는 자원과 scaling 정책을 적용하는 아키텍처다.
 
+![Traditional Serving과 Disaggregated Serving의 Prefill·Decode 실행 구조 비교](/assets/images/blog/disaggregated-serving-nvidia-overview.png)
+
+*Traditional serving은 같은 GPU group에서 prefill과 decode를 처리한다. Disaggregated serving은 compute-bound prefill과 memory-bound decode를 전용 GPU group으로 분리하고 KV cache를 전달한다. 출처: [NVIDIA, What Is Disaggregated Serving?](https://www.nvidia.com/en-us/glossary/disaggregated-serving/)*
+
 ```text
 Aggregated serving
 
@@ -43,10 +47,6 @@ Request -> Router -> [ Prefill worker ]
                            ▼
                        [ Decode worker ] -> Response
 ```
-
-![통합형 LLM 서빙과 Prefill·Decode 분리형 서빙 아키텍처 비교](/assets/images/blog/disaggregated-serving-architecture.svg)
-
-*통합형에서는 하나의 GPU pool이 prefill과 decode를 번갈아 처리한다. 분리형에서는 전용 pool 사이로 KV cache를 전달하고 각 단계를 독립적으로 확장한다. 직접 만든 개념도.*
 
 한 줄로 요약하면 다음과 같다.
 
