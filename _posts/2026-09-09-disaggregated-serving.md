@@ -48,6 +48,10 @@ Request -> Router -> [ Prefill worker ]
                        [ Decode worker ] -> Response
 ```
 
+![통합형 LLM 서빙과 Prefill·Decode 분리형 서빙 아키텍처 비교](/assets/images/blog/disaggregated-serving-architecture.svg)
+
+*같은 개념을 단순화한 구조도다. 통합형은 하나의 GPU pool에서 두 단계가 자원을 공유하고, 분리형은 KV cache를 전달하며 각 pool을 독립적으로 확장한다. 직접 만든 개념도.*
+
 한 줄로 요약하면 다음과 같다.
 
 > Disaggregated Serving은 model을 쪼개는 기술이 아니라, 한 요청의 서로 다른 실행 단계를 분리해 각각 최적화하는 serving 아키텍처다.
