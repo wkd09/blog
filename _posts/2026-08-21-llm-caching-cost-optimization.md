@@ -20,7 +20,7 @@ LLM API를 사용하는 서비스에서는 비슷한 질문에 비슷한 답을 
 
 FAQ 챗봇에 "비밀번호를 어떻게 바꾸나요?"라는 질문이 들어온 뒤, 다른 사용자가 "로그인 암호 변경 방법을 알려주세요"라고 물어볼 수 있다. 두 요청을 매번 LLM에 보내면 같은 일을 다시 수행하면서 입력 토큰, 출력 토큰, 응답 시간을 모두 지불한다.
 
-![반복되는 LLM 호출로 API 비용이 낭비되는 상황을 표현한 그림](/assets/images/blog/llm-repeated-call-cost.png){: .align-center width="708" }
+![반복되는 LLM 호출로 API 비용이 낭비되는 상황을 표현한 그림]({{ '/assets/images/blog/llm-repeated-call-cost.png' | relative_url }}){: .align-center width="708" }
 
 *같은 의미의 요청도 문자열이 다르면 전통적인 exact-match cache를 통과한다. 이미지: @rauljuncoV.*
 
@@ -96,7 +96,7 @@ Semantic cache는 문자열 대신 임베딩 벡터 사이의 거리를 비교�
 
 기본적인 cache-aside 흐름은 다음과 같다.
 
-![Redis LangCache에서 semantic match 여부에 따라 cache hit와 LLM 호출로 분기하는 흐름](/assets/images/blog/redis-langcache-flow.png){: .align-center width="480" }
+![Redis LangCache에서 semantic match 여부에 따라 cache hit와 LLM 호출로 분기하는 흐름]({{ '/assets/images/blog/redis-langcache-flow.png' | relative_url }}){: .align-center width="480" }
 
 *Semantic match가 있으면 저장된 응답을 반환하고, 없으면 LLM을 호출한 뒤 새 응답을 cache에 저장한다. 이미지: @rauljuncoV.*
 
@@ -252,7 +252,7 @@ Semantic cache 설명에서는 "오늘 서울 날씨 어때?"와 "서울에 지�
 
 Redis를 사용한다면 크게 두 가지 선택지가 있다.
 
-![Redis 로고](/assets/images/blog/redis-logo.png){: .align-center width="760" }
+![Redis 로고]({{ '/assets/images/blog/redis-logo.png' | relative_url }}){: .align-center width="760" }
 
 | 선택지 | 특징 | 적합한 경우 |
 | --- | --- | --- |

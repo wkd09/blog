@@ -113,7 +113,7 @@ RoFormer는 서로 다른 주파수의 회전을 여러 차원에 적용한다. 
 
 논문은 이를 inter-token dependency가 거리에 따라 감쇠하는 성질로 분석한다. 아래 그래프처럼 상대 거리가 커질수록 attention에서 위치 정보가 제공하는 상관이 전반적으로 낮아지는 경향을 보인다.
 
-![RoPE relative distance](/assets/images/blog/roformer-relative-distance.png)
+![RoPE relative distance]({{ '/assets/images/blog/roformer-relative-distance.png' | relative_url }})
 
 *상대 거리가 증가할수록 위치 기반 의존성이 전반적으로 감쇠한다. 세로축은 논문의 relative upper bound를 옮긴 것이다.*
 
@@ -155,13 +155,13 @@ value까지 회전시키지 않는 이유는 위치 정보가 attention의 어�
 
 먼저 Transformer-base와 비교한 WMT 영어-독일어 번역 결과에서 RoFormer가 BLEU 27.5로 Transformer-base의 27.3보다 높았다.
 
-![RoFormer BLEU result](/assets/images/blog/roformer-bleu.png)
+![RoFormer BLEU result]({{ '/assets/images/blog/roformer-bleu.png' | relative_url }})
 
 *Transformer-base 대비 RoFormer의 BLEU 비교. 작은 차이처럼 보여도 positional encoding만 바꾼 효과를 확인하는 결과다.*
 
 문장 수준 분류 결과는 데이터셋마다 강점이 달랐다.
 
-![RoFormer sentence classification results](/assets/images/blog/roformer-sentence-results.png)
+![RoFormer sentence classification results]({{ '/assets/images/blog/roformer-sentence-results.png' | relative_url }})
 
 | 모델 | MRPC | SST-2 | QNLI | STS-B | QQP | MNLI (m/mm) |
 |---|---:|---:|---:|---:|---:|---:|
@@ -172,13 +172,13 @@ RoFormer가 모든 과제에서 이기는 것은 아니다. 하지만 MRPC, STS-
 
 논문은 긴 텍스트 분류에서도 RoPE의 장점을 확인한다. 특히 최대 길이 512와 1024를 비교한 결과, RoFormer-1024는 validation 66.07%, test 69.79%를 기록했다.
 
-![RoFormer long text classification results](/assets/images/blog/roformer-long-text-results.png)
+![RoFormer long text classification results]({{ '/assets/images/blog/roformer-long-text-results.png' | relative_url }})
 
 *긴 텍스트 분류 결과. RoFormer-1024가 더 긴 입력 길이를 사용했을 때 validation과 test 모두에서 가장 높은 결과를 보인다.*
 
 학습 과정에서 RoPE를 적용한 모델의 loss도 비교적 안정적으로 감소한다.
 
-![RoFormer training loss](/assets/images/blog/roformer-loss.png)
+![RoFormer training loss]({{ '/assets/images/blog/roformer-loss.png' | relative_url }})
 
 *RoFormer와 BERT의 학습 loss 비교, 그리고 RoPE 적용 여부에 따른 Performer의 loss 비교.*
 

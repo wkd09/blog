@@ -11,7 +11,7 @@ tags:
 source: "Notion PDF Export - Normalization, PCA"
 ---
 
-![Normalization and PCA](/assets/images/blog/normalization-pca.svg)
+![Normalization and PCA]({{ '/assets/images/blog/normalization-pca.svg' | relative_url }})
 
 <small>Image: [Wikimedia Commons - Gaussian scatter PCA](https://commons.wikimedia.org/wiki/Special:FilePath/GaussianScatterPCA.svg)</small>
 
@@ -33,8 +33,8 @@ PCA
 
 Batch Normalization은 mini-batch 단위로 activation의 평균과 분산을 맞춘다.
 
-![batch normalization](/assets/images/blog/batch-normalization.png)
-![internal covariate shift](/assets/images/blog/internal-covariate-shift.png)
+![batch normalization]({{ '/assets/images/blog/batch-normalization.png' | relative_url }})
+![internal covariate shift]({{ '/assets/images/blog/internal-covariate-shift.png' | relative_url }})
 
 $$
 \hat{x}_i
@@ -47,8 +47,8 @@ $$
 y_i = \gamma \hat{x}_i + \beta
 $$
 
-![normalization formulas](/assets/images/blog/normalization-formulas.png)
-![batch norm algorithm](/assets/images/blog/batch-norm-algorithm.png)
+![normalization formulas]({{ '/assets/images/blog/normalization-formulas.png' | relative_url }})
+![batch norm algorithm]({{ '/assets/images/blog/batch-norm-algorithm.png' | relative_url }})
 
 정규화한 값에 학습 가능한 $\gamma$, $\beta$를 다시 적용하므로 model이 필요한 scale과 shift를 복원할 수 있다.
 

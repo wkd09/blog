@@ -50,7 +50,7 @@ Loss function은 크게 두 가지 역할을 한다.
 
 Cross-Entropy는 분류에서 사용하는 대표적인 loss다. 모델이 정답 class에 높은 확률을 주면 loss가 작아지고, 확신을 갖고 틀린 class를 선택하면 loss가 크게 증가한다.
 
-![cross entropy loss](/assets/images/blog/cross-entropy-loss.png)
+![cross entropy loss]({{ '/assets/images/blog/cross-entropy-loss.png' | relative_url }})
 
 ### Binary Cross-Entropy
 
@@ -60,7 +60,7 @@ $$
 \mathcal{L}_{\text{BCE}} = -\frac{1}{N}\sum_{i=1}^{N}\left(y_i\log p_i + (1-y_i)\log(1-p_i)\right)
 $$
 
-![binary cross entropy math](/assets/images/blog/binary-cross-entropy-math.png)
+![binary cross entropy math]({{ '/assets/images/blog/binary-cross-entropy-math.png' | relative_url }})
 
 - $N$: sample 수
 - $y_i$: 실제 label, 0 또는 1
@@ -76,7 +76,7 @@ $$
 \mathcal{L}_{\text{CCE}} = -\frac{1}{N}\sum_{i=1}^{N}\sum_{j=1}^{C} y_{ij}\log p_{ij}
 $$
 
-![categorical cross entropy math](/assets/images/blog/categorical-cross-entropy-math.png)
+![categorical cross entropy math]({{ '/assets/images/blog/categorical-cross-entropy-math.png' | relative_url }})
 
 - $N$: sample 수
 - $C$: 클래스 수
@@ -93,7 +93,7 @@ $$
 \mathcal{L}_{\text{SCCE}} = -\frac{1}{N}\sum_{i=1}^{N}\log p_{i,y_i}
 $$
 
-![sparse categorical cross entropy math](/assets/images/blog/sparse-cross-entropy-math.png)
+![sparse categorical cross entropy math]({{ '/assets/images/blog/sparse-cross-entropy-math.png' | relative_url }})
 
 - $y_i$: sample $i$의 정수 class index
 - $p_{i,y_i}$: 정답 class에 할당한 확률
@@ -104,7 +104,7 @@ $$
 
 회귀는 class가 아니라 연속된 값을 예측한다. 따라서 실제값과 예측값 사이의 거리를 직접 계산한다.
 
-![mse loss](/assets/images/blog/mse-loss.png)
+![mse loss]({{ '/assets/images/blog/mse-loss.png' | relative_url }})
 
 ### MSE(Mean Squared Error)
 
@@ -114,7 +114,7 @@ $$
 \mathcal{L}_{\text{MSE}} = \frac{1}{N}\sum_{i=1}^{N}(y_i - \hat{y}_i)^2
 $$
 
-![mse math](/assets/images/blog/mse-math.png)
+![mse math]({{ '/assets/images/blog/mse-math.png' | relative_url }})
 
 - $N$: sample 수
 - $y_i$: 실제값
@@ -130,7 +130,7 @@ $$
 \mathcal{L}_{\text{RMSE}} = \sqrt{\frac{1}{N}\sum_{i=1}^{N}(y_i - \hat{y}_i)^2}
 $$
 
-![rmse math](/assets/images/blog/rmse-math.png)
+![rmse math]({{ '/assets/images/blog/rmse-math.png' | relative_url }})
 
 MSE는 단위도 제곱된다. RMSE는 다시 제곱근을 취하므로 원래 target과 같은 단위로 오차를 볼 수 있다. 다만 학습 loss보다 사람이 결과를 해석하는 evaluation metric으로 자주 사용한다.
 
@@ -142,7 +142,7 @@ $$
 \mathcal{L}_{\text{MAE}} = \frac{1}{N}\sum_{i=1}^{N}|y_i - \hat{y}_i|
 $$
 
-![mae math](/assets/images/blog/mae-math.png)
+![mae math]({{ '/assets/images/blog/mae-math.png' | relative_url }})
 
 - $|y_i - \hat{y}_i|$: sample의 절대 오차
 

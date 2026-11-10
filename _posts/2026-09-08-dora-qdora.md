@@ -29,7 +29,7 @@ source: "arXiv:2402.09353"
 
 DoRA는 이 아이디어로 LoRA와 full fine-tuning 사이의 표현력 차이를 줄인다. QDoRA는 여기에 양자화를 결합해, 적은 메모리로 DoRA adapter를 학습하려고 한다.
 
-![DoRA의 weight decomposition 개요](/assets/images/blog/dora-overview.png)
+![DoRA의 weight decomposition 개요]({{ '/assets/images/blog/dora-overview.png' | relative_url }})
 
 *DoRA는 사전학습 weight를 magnitude와 direction으로 나누고, direction 쪽은 low-rank update로 적응시킨 뒤 학습이 끝나면 다시 하나의 weight로 merge한다. 출처: DoRA 논문 Figure 1.*
 
@@ -66,7 +66,7 @@ $$
 
 즉 LoRA는 적은 파라미터로 효율적으로 움직이지만, weight를 세밀하게 조절하는 방식에서는 full fine-tuning보다 덜 자유로울 수 있다.
 
-![Full fine-tuning, LoRA, DoRA의 magnitude·direction 변화 패턴](/assets/images/blog/dora-update-pattern.png)
+![Full fine-tuning, LoRA, DoRA의 magnitude·direction 변화 패턴]({{ '/assets/images/blog/dora-update-pattern.png' | relative_url }})
 
 *Full fine-tuning과 DoRA는 magnitude 변화와 direction 변화가 반대 방향으로 움직이는 경향을 보이는 반면, LoRA는 두 변화가 함께 커지는 패턴을 보인다. 출처: DoRA 논문 Figure 2.*
 

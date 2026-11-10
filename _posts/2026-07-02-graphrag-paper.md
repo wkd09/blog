@@ -39,7 +39,7 @@ GraphRAG의 한 줄 요약은 다음과 같다.
 
 > GraphRAG는 `문서 -> 지식 그래프 -> 커뮤니티 요약 -> map-reduce 답변`으로 이어지는 global RAG 방식이다.
 
-![GraphRAG architecture](/assets/images/blog/graphrag-architecture.png)
+![GraphRAG architecture]({{ '/assets/images/blog/graphrag-architecture.png' | relative_url }})
 
 *GraphRAG 구현 아키텍처 예시. 핵심은 특정 DB가 아니라, 전체 corpus를 graph와 community summary로 구조화하는 것이다.*
 
@@ -145,7 +145,7 @@ Claim = node나 edge에 붙는 근거 정보
 
 예를 들어 AI 연구 논문 corpus라면 사람, 논문, 방법론, benchmark, metric 등이 node가 되고, `proposes`, `uses`, `evaluates_on`, `improves` 같은 관계가 edge가 될 수 있다.
 
-![GraphRAG example graph](/assets/images/blog/graphrag-example-graph.png)
+![GraphRAG example graph]({{ '/assets/images/blog/graphrag-example-graph.png' | relative_url }})
 
 *지식 그래프 예시. 사람, 주제, 논문, 개념이 관계로 연결되고, 이 연결 구조를 통해 corpus 안의 주제 덩어리를 파악할 수 있다.*
 

@@ -19,7 +19,7 @@ source: "arXiv:2201.11903"
 
 논문의 핵심은 간단하다. LLM에게 바로 답만 쓰게 하지 말고, 답에 도달하는 중간 추론 과정을 예시로 보여주면 복잡한 reasoning task 성능이 크게 좋아질 수 있다는 것이다. 논문은 이 방식을 `chain-of-thought prompting`, 줄여서 `CoT prompting`이라고 부른다.
 
-![Chain-of-thought prompting 예시](/assets/images/blog/cot-fig1.png)
+![Chain-of-thought prompting 예시]({{ '/assets/images/blog/cot-fig1.png' | relative_url }})
 
 *출처: 논문 Figure 1. Standard prompting은 답만 보여주지만, CoT prompting은 중간 추론 과정을 함께 보여준다.*
 
@@ -109,7 +109,7 @@ A:
 
 논문 Table 1과 Table 2에 따르면 PaLM 540B는 GSM8K에서 standard prompting 17.9%에서 CoT prompting 56.9%로 상승했다. improvement는 +39.0%p다.
 
-![GSM8K에서 PaLM 540B CoT 결과](/assets/images/blog/cot-fig2.png)
+![GSM8K에서 PaLM 540B CoT 결과]({{ '/assets/images/blog/cot-fig2.png' | relative_url }})
 
 *출처: 논문 Figure 2. PaLM 540B에서 CoT prompting이 GSM8K 성능을 크게 끌어올렸다.*
 
@@ -129,7 +129,7 @@ A:
 
 다만 모든 수학 benchmark에서 동일하게 큰 폭으로 좋아진 것은 아니다. 예를 들어 PaLM 540B의 ASDiv는 72.1%에서 73.9%로 +1.8%p만 올랐고, AQuA는 25.2%에서 35.8%로 올랐다. 출처는 논문 Table 2다.
 
-![수학 추론에서 scale에 따라 커지는 CoT 효과](/assets/images/blog/cot-fig4.png)
+![수학 추론에서 scale에 따라 커지는 CoT 효과]({{ '/assets/images/blog/cot-fig4.png' | relative_url }})
 
 *출처: 논문 Figure 4. CoT prompting의 이득은 작은 모델보다 큰 모델에서 뚜렷하게 나타난다.*
 
@@ -147,7 +147,7 @@ PaLM 540B 기준 결과는 다음과 같다.
 | Sports Understanding | 80.5% | 95.4% | 큰 향상 | 논문 Table 4 |
 | SayCan | 80.8% | 91.7% | robot action planning 형태에서도 향상 | 논문 Table 4 |
 
-![상식 추론에서의 CoT 결과](/assets/images/blog/cot-fig7.png)
+![상식 추론에서의 CoT 결과]({{ '/assets/images/blog/cot-fig7.png' | relative_url }})
 
 *출처: 논문 Figure 7. PaLM 기준으로 CoT prompting은 여러 commonsense reasoning benchmark에서 성능을 높였다.*
 
@@ -193,7 +193,7 @@ PaLM 540B 결과는 다음과 같다.
 | Coin Flip | 3 flips, OOD | 49.3% | 98.6% | 논문 Table 5 |
 | Coin Flip | 4 flips, OOD | 54.8% | 90.2% | 논문 Table 5 |
 
-![기호 추론에서의 length generalization](/assets/images/blog/cot-fig8.png)
+![기호 추론에서의 length generalization]({{ '/assets/images/blog/cot-fig8.png' | relative_url }})
 
 *출처: 논문 Figure 8. CoT prompting은 더 긴 symbolic reasoning 입력으로 일반화하는 데 도움을 줬다.*
 

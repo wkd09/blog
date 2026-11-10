@@ -53,7 +53,7 @@ MoE / FFN                   │
 
 논문 설정은 7B dense 모델에서 full:sparse 비율 1:3, 80B-A3B MoE에서 1:11이다. 따라서 80B 모델의 49개 layer 중 full attention을 쓰는 layer는 5개뿐이다. 각 하이브리드 묶음의 마지막 layer는 full attention으로 두어 최종 global aggregation을 보장한다.
 
-![HySparse의 Full Attention과 뒤따르는 Sparse Attention layer 구조 및 KV와 block index 재사용 경로](/assets/images/blog/hysparse-architecture.png)
+![HySparse의 Full Attention과 뒤따르는 Sparse Attention layer 구조 및 KV와 block index 재사용 경로]({{ '/assets/images/blog/hysparse-architecture.png' | relative_url }})
 
 *HySparse는 앞선 full attention에서 얻은 K/V와 Top-K block index를 다음 sparse layer들에 전달한다. Sparse layer 안에서는 공유 KV를 쓰는 block sparse branch와 자체 KV를 유지하는 SWA branch를 gate로 합친다. 출처: HySparse 논문 Figure 1.*
 
@@ -83,7 +83,7 @@ Block sparse branch는 선택된 global context를 효율적으로 가져온다.
 
 저자들은 7B dense 모델과 80B-A3B MoE 모델을 학습해 Full Attention, Hybrid SWA, HySparse를 비교했다. Hybrid SWA는 같은 hybrid 비율로 full attention과 sliding-window attention을 섞고, HySparse는 sparse global 경로를 추가한 구조다. 아래는 첨부한 논문 표와 본문 결과 중 전체 점수 및 대표 결과를 요약한 것이다.
 
-![7B Dense와 80B MoE 모델의 일반 추론 벤치마크 결과 비교](/assets/images/blog/hysparse-benchmark-results.png)
+![7B Dense와 80B MoE 모델의 일반 추론 벤치마크 결과 비교]({{ '/assets/images/blog/hysparse-benchmark-results.png' | relative_url }})
 
 *일반, 수학, 코드, 중국어 benchmark 비교. HySparse는 대부분 항목에서 Full Attention 또는 Hybrid SWA와 비슷하거나 높은 성능을 보이며, 모든 개별 benchmark에서 우세한 것은 아니다. 출처: HySparse 논문 Table 2.*
 
@@ -97,7 +97,7 @@ Block sparse branch는 선택된 global context를 효율적으로 가져온다.
 | GSM8K | 80B MoE | 53.8 | 45.3 | **54.1** |
 | C-Eval | 80B MoE | 64.6 | 58.8 | **65.0** |
 
-![7B Dense와 80B MoE 모델의 16K 및 32K RULER 결과 비교](/assets/images/blog/hysparse-ruler-results.png)
+![7B Dense와 80B MoE 모델의 16K 및 32K RULER 결과 비교]({{ '/assets/images/blog/hysparse-ruler-results.png' | relative_url }})
 
 *RULER의 개별 과제와 종합 점수. 80B MoE에서 HySparse의 종합 점수는 16K에서 90.6, 32K에서 87.4다. 출처: HySparse 논문 Table 3.*
 

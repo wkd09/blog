@@ -28,7 +28,7 @@ source: "arXiv:2211.01910"
 
 중요한 점은 "프롬프트 자동 생성" 자체보다도, 논문이 프롬프트 엔지니어링을 **평가 가능한 black-box optimization 문제**로 바꿨다는 것이다.
 
-![Automatic Prompt Engineer workflow](/assets/images/blog/ape-workflow.png)
+![Automatic Prompt Engineer workflow]({{ '/assets/images/blog/ape-workflow.png' | relative_url }})
 
 *출처: 논문 Figure 1. APE는 후보 instruction을 생성하고, target model에서 실행해 점수를 매긴 뒤, 가장 좋은 instruction을 선택한다.*
 
@@ -186,7 +186,7 @@ APE는 선택적으로 상위 후보 주변을 다시 탐색한다.
 
 논문은 이 방식을 `Iterative Monte Carlo Search`라고 부른다. 좋은 후보 근처를 local search하는 셈이다.
 
-![APE sample size and iterative search](/assets/images/blog/ape-iterative-search.png)
+![APE sample size and iterative search]({{ '/assets/images/blog/ape-iterative-search.png' | relative_url }})
 
 *출처: 논문 Figure 6 일부. Iterative search는 후보 집합의 평균 품질을 올릴 수 있지만, 최고 성능 후보는 초기 후보에서 이미 발견되는 경우도 많다.*
 
@@ -198,7 +198,7 @@ Instruction Induction은 입출력 예시를 보고 규칙을 추론하는 task�
 
 논문은 24개 Instruction Induction task에서 APE를 평가했다. 결과적으로 APE는 24/24 task에서 human-level 또는 그 이상의 zero-shot performance를 보였다. Figure 1에 따르면 24개 task의 interquartile mean 기준으로 APE with InstructGPT는 0.81, human prompt engineer는 0.75 수준이다.
 
-![APE instruction induction results](/assets/images/blog/ape-instruction-induction.png)
+![APE instruction induction results]({{ '/assets/images/blog/ape-instruction-induction.png' | relative_url }})
 
 *출처: 논문 Appendix figure. 24개 Instruction Induction task에서 APE는 많은 task에서 human prompt와 비슷하거나 더 높은 성능을 낸다.*
 
@@ -287,7 +287,7 @@ metric이 부정확하면 APE는 좋은 프롬프트가 아니라 metric을 해�
 
 논문은 posterior sample size, 즉 후보 instruction 수를 늘렸을 때 성능이 어떻게 변하는지도 분석했다.
 
-![APE posterior sample size](/assets/images/blog/ape-sample-size.png)
+![APE posterior sample size]({{ '/assets/images/blog/ape-sample-size.png' | relative_url }})
 
 *출처: 논문 Figure 7. 후보 수를 늘리면 성능은 올라가지만, 증가폭은 점점 줄어든다.*
 

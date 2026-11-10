@@ -89,11 +89,11 @@ $s$나 $t$가 얼마나 변했는지에 따라 함수 $z$의 변화량을 위 �
 
 Backpropagation이 이뤄지기 전에는 forward propagation을 진행해야 한다. 초기화한 $w$ 값과 input인 $x$를 가지고 순전파 계산을 진행한 후, 우리가 원하는 값이 나오는지, 나오지 않았다면 얼마나 차이 나는지 구해야 한다.
 
-![backprop forward](/assets/images/blog/backprop-forward.png)
+![backprop forward]({{ '/assets/images/blog/backprop-forward.png' | relative_url }})
 
 이 모델은 2개의 input, 2개의 output, 2개의 hidden layer를 가진 neural network이다.
 
-![backprop backward](/assets/images/blog/backprop-backward.png)
+![backprop backward]({{ '/assets/images/blog/backprop-backward.png' | relative_url }})
 
 먼저 target output으로 $y_1$에 0.2, $y_2$에 0.7을 넣고, input으로는 $x_1$에 0.2, $x_2$에 0.5를 넣는다. 각 $w$는 임의의 값으로 초기화했다.
 
@@ -164,7 +164,7 @@ print(MSE([0.2, 0.7], [0.57, 0.61]))  # 결과: 0.0725
 
 ## Back Propagation
 
-![backprop backward](/assets/images/blog/image.png)
+![backprop backward]({{ '/assets/images/blog/image.png' | relative_url }})
 
 
 0.4로 할당되어 있는 가중치 $w_{10}^{1}$의 값을 업데이트할 것이다. 그러려면 $w_{10}^{1}$이 전체 에러 $E$에 얼마나 영향을 미쳤는지, 즉 기여도를 구해야 한다. 이때 chain rule이 사용된다.

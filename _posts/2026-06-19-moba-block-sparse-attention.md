@@ -23,7 +23,7 @@ LLM에서 context length를 늘리는 일은 매력적이다. 긴 문서, 여러
 
 논문의 핵심은 간단하다. 모든 token을 모든 token에 attention하지 말고, sequence를 block으로 나눈 뒤 query마다 관련 있는 block만 골라 attention하자는 것이다. MoBA는 이를 위해 block-level routing과 top-k gating을 사용한다.
 
-![MoBA 논문 Figure 1a: Full Attention, Sparse Attention, MoBA의 비교](/assets/images/blog/moba-fig1a.webp)
+![MoBA 논문 Figure 1a: Full Attention, Sparse Attention, MoBA의 비교]({{ '/assets/images/blog/moba-fig1a.webp' | relative_url }})
 
 *MoBA는 모든 token을 보는 full attention과 달리, query별로 관련 block을 선택해 attention을 수행한다.*
 
@@ -183,7 +183,7 @@ q attends to K_token, V_token inside selected blocks
 
 이 구조는 full attention과 sparse attention 사이의 중간 지점에 있다. 모든 token을 다 보지는 않지만, query마다 다른 block을 선택할 수 있기 때문에 고정 window보다 유연하다.
 
-![MoBA 논문 Figure 1b: query와 block routing 구조](/assets/images/blog/moba-fig1b.webp)
+![MoBA 논문 Figure 1b: query와 block routing 구조]({{ '/assets/images/blog/moba-fig1b.webp' | relative_url }})
 
 *MoBA는 query와 block 대표 key 사이의 score를 이용해 관련 block을 고른 뒤, 선택된 block 내부의 실제 K/V에 attention한다.*
 

@@ -148,7 +148,7 @@ Inference : token이 하나씩 들어옴      -> recurrence로 state 갱신
 
 논문은 이 차이를 Copying과 Selective Copying task로 설명한다.
 
-![Copying, Selective Copying과 Induction Heads task](/assets/images/blog/mamba-selective-copying-induction.png)
+![Copying, Selective Copying과 Induction Heads task]({{ '/assets/images/blog/mamba-selective-copying-induction.png' | relative_url }})
 
 *일반 Copying은 간격이 고정되어 있어 정적인 convolution kernel도 풀 수 있다. Selective Copying은 유효한 token의 위치가 매번 달라 입력 내용을 보고 기억할지 결정해야 한다. Induction Heads는 앞에서 본 pattern을 현재 context에 맞춰 회상해야 한다. 출처: Mamba Figure 2.*
 
@@ -191,7 +191,7 @@ $$
 y_t = C_t h_t
 $$
 
-![Mamba의 Selective State Space Model](/assets/images/blog/mamba-selective-ssm-overview.png)
+![Mamba의 Selective State Space Model]({{ '/assets/images/blog/mamba-selective-ssm-overview.png' | relative_url }})
 
 *입력 $x_t$에서 $B_t$, $C_t$, $\Delta_t$를 만들고, $\Delta_t$와 고정된 $A$를 discretize해 현재 token의 state transition을 결정한다. 확장된 state는 GPU HBM에 저장하지 않고 빠른 SRAM 안에서 계산한다. 출처: Mamba Figure 1.*
 
@@ -300,7 +300,7 @@ Backward pass에 필요한 모든 중간 state도 저장하지 않는다. 대신
 
 Selective SSM은 하나의 sequence transformation layer다. 논문은 기존 H3 block과 gated MLP의 구조를 합쳐 Mamba block을 만든다.
 
-![H3, Gated MLP와 Mamba block 비교](/assets/images/blog/mamba-block-architecture.png)
+![H3, Gated MLP와 Mamba block 비교]({{ '/assets/images/blog/mamba-block-architecture.png' | relative_url }})
 
 *Mamba는 gated MLP의 main branch에 Conv와 selective SSM을 넣은 형태로 볼 수 있다. H3 block과 별도의 MLP block을 번갈아 쌓지 않고 같은 Mamba block을 반복한다. 출처: Mamba Figure 3.*
 
@@ -356,7 +356,7 @@ Induction Heads task에서는 길이 256으로 학습한 Mamba가 1,048,576 길�
 
 ### Language Modeling Scaling Law
 
-![The Pile에서 Mamba의 scaling law](/assets/images/blog/mamba-scaling-laws.png)
+![The Pile에서 Mamba의 scaling law]({{ '/assets/images/blog/mamba-scaling-laws.png' | relative_url }})
 
 *The Pile에서 약 125M부터 1.3B parameter 모델을 비교한 scaling law. Sequence length 2048과 8192 모두에서 Mamba가 다른 attention-free model보다 낮은 perplexity를 보였고 강한 Transformer++ recipe와 경쟁했다. 출처: Mamba Figure 4.*
 
@@ -368,7 +368,7 @@ Mamba는 Hyena, RWKV, RetNet, H3++ 같은 subquadratic architecture보다 좋은
 
 ### Zero-shot Evaluation
 
-![Mamba의 language modeling과 zero-shot 결과](/assets/images/blog/mamba-language-model-results.png)
+![Mamba의 language modeling과 zero-shot 결과]({{ '/assets/images/blog/mamba-language-model-results.png' | relative_url }})
 
 *LAMBADA perplexity와 accuracy, HellaSwag, PIQA, ARC, WinoGrande의 zero-shot 결과. 굵은 글씨는 각 규모 구간의 Mamba 성능이다. 출처: Mamba Table 3.*
 
@@ -389,7 +389,7 @@ Mamba-2.8B의 zero-shot 평균 63.3은 Pythia-2.8B의 59.1뿐 아니라 Pythia-6
 
 ### 속도와 Memory
 
-![Mamba selective scan과 inference throughput benchmark](/assets/images/blog/mamba-efficiency-benchmarks.png)
+![Mamba selective scan과 inference throughput benchmark]({{ '/assets/images/blog/mamba-efficiency-benchmarks.png' | relative_url }})
 
 *왼쪽은 A100 80GB PCIe에서 sequence length에 따른 scan, convolution, FlashAttention-2 시간이다. 오른쪽은 prompt length 2048에서 batch size별 생성 throughput이다. 출처: Mamba Figure 8.*
 

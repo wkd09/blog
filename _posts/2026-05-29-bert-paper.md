@@ -18,7 +18,7 @@ source: "arXiv:1810.04805"
 
 논문의 핵심은 간단하다. 언어를 왼쪽에서 오른쪽으로만 보지 말고, Transformer Encoder를 사용해 양방향 context를 함께 보도록 사전학습하면 자연어 이해 task 성능이 크게 좋아진다는 것이다. BERT는 이를 위해 `Masked Language Model`과 `Next Sentence Prediction`을 사용했다.
 
-![BERT 원문 Figure: input embedding 구성](/assets/images/blog/bert-paper-figure.png)
+![BERT 원문 Figure: input embedding 구성]({{ '/assets/images/blog/bert-paper-figure.png' | relative_url }})
 
 *출처: 논문 Figure 2. BERT 입력은 token embedding, segment embedding, position embedding을 합쳐 만든다.*
 
@@ -65,7 +65,7 @@ BERT의 특징은 다음과 같다.
 
 BERT 입력은 세 가지 embedding의 합으로 구성된다.
 
-![bert embedding](/assets/images/blog/bertembedding.png)
+![bert embedding]({{ '/assets/images/blog/bertembedding.png' | relative_url }})
 
 ### Token Embedding
 
@@ -91,7 +91,7 @@ Transformer는 recurrent 구조가 없기 때문에 token 순서를 별도로 �
 
 BERT의 pretraining은 두 task로 구성된다.
 
-![bert pretraining concept](/assets/images/blog/bertscore.png)
+![bert pretraining concept]({{ '/assets/images/blog/bertscore.png' | relative_url }})
 
 ### Masked Language Model
 
@@ -123,7 +123,7 @@ Label: IsNext
 
 BERT는 pretraining 후 각 downstream task에 맞게 fine-tuning한다.
 
-![bert fine-tuning](/assets/images/blog/bertfinetune.png)
+![bert fine-tuning]({{ '/assets/images/blog/bertfinetune.png' | relative_url }})
 
 fine-tuning의 장점은 구조가 단순하다는 점이다. 대부분의 task에서 task-specific layer를 조금 붙이고, BERT 전체 파라미터를 labeled data로 업데이트한다.
 
@@ -142,7 +142,7 @@ fine-tuning의 장점은 구조가 단순하다는 점이다. 대부분의 task�
 
 ### GLUE
 
-![bert experiment result 1](/assets/images/blog/bertscore01.png)
+![bert experiment result 1]({{ '/assets/images/blog/bertscore01.png' | relative_url }})
 
 *GLUE는 여러 자연어 이해 task를 묶은 benchmark다. BERT는 기존 방법보다 강한 성능을 보였다.*
 
@@ -150,7 +150,7 @@ BERT는 sentence classification, paraphrase, natural language inference 등 다�
 
 ### SQuAD
 
-![bert experiment result 2](/assets/images/blog/bertscore02.png)
+![bert experiment result 2]({{ '/assets/images/blog/bertscore02.png' | relative_url }})
 
 *SQuAD는 주어진 지문에서 질문의 답이 되는 span을 찾는 추출형 QA benchmark다.*
 
@@ -158,11 +158,11 @@ BERT는 질문과 지문을 함께 encoding하고, 답의 시작과 끝 위치�
 
 ### SWAG와 모델 크기
 
-![bert experiment result 3](/assets/images/blog/bertscore03.png)
+![bert experiment result 3]({{ '/assets/images/blog/bertscore03.png' | relative_url }})
 
 *SWAG는 주어진 상황 다음에 올 자연스러운 문장을 고르는 task다.*
 
-![bert experiment result 4](/assets/images/blog/bertscore.png)
+![bert experiment result 4]({{ '/assets/images/blog/bertscore.png' | relative_url }})
 
 *논문은 모델 크기가 커질수록 성능이 좋아지는 경향도 함께 보여준다.*
 

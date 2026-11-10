@@ -63,7 +63,7 @@ prefix + token 1 + token 2 -> token 3
 4. reject가 발생하면 보정된 분포에서 토큰을 다시 샘플링한다.
 5. 한 iteration에서 최소 1개, 최대 $\gamma + 1$개의 토큰을 생성한다.
 
-![Speculative decoding에서 작은 모델의 drafting과 큰 모델의 verification 흐름](/assets/images/blog/specde.png)
+![Speculative decoding에서 작은 모델의 drafting과 큰 모델의 verification 흐름]({{ '/assets/images/blog/specde.png' | relative_url }})
 
 *그림의 왼쪽 패널이 이 글에서 다루는 speculative decoding이다. 작은 모델 $M_q$가 draft token을 순차적으로 만들고, 큰 모델 $M_p$가 여러 후보 위치를 병렬로 검증한다.*
 
@@ -127,7 +127,7 @@ $$
 \frac{1 - \alpha^{\gamma + 1}}{(1 - \alpha)(\gamma c + 1)}
 $$
 
-![speculative decoding speedup analysis](/assets/images/blog/speculative-decoding-speedup-analysis.png)
+![speculative decoding speedup analysis]({{ '/assets/images/blog/speculative-decoding-speedup-analysis.png' | relative_url }})
 
 위 그림은 논문 Figure 3, Figure 4에서 가져온 것이다. 왼쪽은 accept rate인 $\alpha$와 작은 모델 비용 $c$에 따라 최적의 $\gamma$가 어떻게 달라지는지 보여주고, 오른쪽은 $\gamma$를 키울 때 speedup과 연산량 증가가 어떻게 trade-off를 이루는지 보여준다.
 

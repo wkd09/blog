@@ -146,7 +146,7 @@ Reasoning B
 
 `TRACE`는 `Thought-process Reconstruction and Automated Clustering Engine`의 약자다. 긴 reasoning을 작은 생각으로 나누고, 각 생각 사이의 관계를 연결해 사고 진행 graph를 만든다.
 
-![TRACE의 네 단계](/assets/images/blog/llm-overthinking-trace-framework.png)
+![TRACE의 네 단계]({{ '/assets/images/blog/llm-overthinking-trace-framework.png' | relative_url }})
 
 *TRACE는 response sampling, thought decomposition과 label inference, progression graph construction, thought pattern induction의 네 단계로 reasoning을 구조화한다. 출처: 논문 Figure 2.*
 
@@ -205,7 +205,7 @@ Query
 
 ## 5. Explorer: 정답을 찾고도 다른 길을 계속 탐색한다
 
-![Explorer 사고 진행 패턴](/assets/images/blog/llm-overthinking-explorer-pattern.png)
+![Explorer 사고 진행 패턴]({{ '/assets/images/blog/llm-overthinking-explorer-pattern.png' | relative_url }})
 
 *Explorer에서는 정답일 확률이 여러 중간 node에 분산된다. 정답을 일찍 찾고도 다른 branch를 탐색하거나 이전 결론을 버릴 수 있다. 출처: 논문 Figure 4.*
 
@@ -229,7 +229,7 @@ Query
 
 ## 6. Late Landing: 정답에 도착한 뒤에도 확인을 반복한다
 
-![Late Landing 사고 진행 패턴](/assets/images/blog/llm-overthinking-late-landing-pattern.png)
+![Late Landing 사고 진행 패턴]({{ '/assets/images/blog/llm-overthinking-late-landing-pattern.png' | relative_url }})
 
 *Late Landing에서는 정답 확률이 마지막 node에 집중된다. 마지막의 두꺼운 self-loop는 이미 제시한 답을 반복 검증하는 행동을 뜻한다. 출처: 논문 Figure 5.*
 
@@ -270,7 +270,7 @@ $$
 
 여기서 성능 향상이 급격히 줄어드는 지점을 `convergence point`라고 부른다. 이 정의에서는 reasoning이 500 token인지 5,000 token인지는 본질이 아니다. 추가 사고가 여전히 답을 개선하고 있는지가 중요하다.
 
-![Explorer와 Late Landing의 utility 변화](/assets/images/blog/llm-overthinking-utility-tracing.png)
+![Explorer와 Late Landing의 utility 변화]({{ '/assets/images/blog/llm-overthinking-utility-tracing.png' | relative_url }})
 
 *Explorer는 성능이 초반에 빠르게 오른 뒤 흔들리고, Late Landing은 꾸준히 상승한 뒤 plateau에 도달한다. 초록색 점선은 개입하지 않은 standard thinking mode의 성능이다. 출처: 논문 Figure 6.*
 

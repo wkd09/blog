@@ -24,7 +24,7 @@ LLM은 다음 토큰을 하나씩 생성한다. 각 단계가 이전 단계의 �
 
 입력 prompt를 받으면 target 모델은 먼저 일반적인 prefill을 수행한다. 이때 여러 층에서 뽑은 hidden state를 결합해 compact한 context feature를 만든다. DFlash는 이 feature를 draft 모델 각 층의 **Key와 Value에 주입**해 KV cache에 보관한다.
 
-![DFlash 추론 구조: target 모델에서 추출한 문맥 feature를 draft layer의 KV에 주입해 block 단위 초안을 만들고 target 모델이 검증한다](/assets/images/blog/dflash-inference-design.svg)
+![DFlash 추론 구조: target 모델에서 추출한 문맥 feature를 draft layer의 KV에 주입해 block 단위 초안을 만들고 target 모델이 검증한다]({{ '/assets/images/blog/dflash-inference-design.svg' | relative_url }})
 
 *DFlash 추론 구조. Target에서 얻은 hidden context feature는 draft layer의 KV cache에 들어가고, block diffusion drafter는 이를 바탕으로 여러 토큰을 병렬 제안한다. 출처: [DFlash 논문 Figure 2](https://arxiv.org/html/2602.06036).* 
 

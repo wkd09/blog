@@ -119,7 +119,7 @@ PCIe load   : layer l+2
 
 GPU가 현재 layer를 계산하는 동안 별도의 transfer stream이 다음 layer의 expert 전체를 미리 읽는다. 다음 layer의 routing 결과를 기다릴 필요가 없으므로 전송을 일찍 시작할 수 있다. 계산이 끝나면 두 buffer가 역할을 바꾼다.
 
-![FreeToken의 full-layer double buffering과 semantic state checkpoint](/assets/images/blog/freetoken-prefill-pipeline-state-checkpoint.png)
+![FreeToken의 full-layer double buffering과 semantic state checkpoint]({{ '/assets/images/blog/freetoken-prefill-pipeline-state-checkpoint.png' | relative_url }})
 
 *Prefill에서는 layer 단위 double buffering으로 PCIe 전송과 GPU 계산을 겹친다. Agent가 tool output이나 reasoning block을 제거하면 semantic anchor의 checkpoint에서 재개해 바뀐 suffix만 다시 prefill한다. 출처: FreeToken Figure 2 일부.*
 
@@ -205,7 +205,7 @@ $$
 - $C$: CPU에 둔 채 바로 계산할 expert
 - $q$: GPU로 옮길 expert 수
 
-![FreeToken의 decode-time bandwidth-adaptive execution](/assets/images/blog/freetoken-decode-bandwidth-adaptive-execution.png)
+![FreeToken의 decode-time bandwidth-adaptive execution]({{ '/assets/images/blog/freetoken-decode-bandwidth-adaptive-execution.png' | relative_url }})
 
 *예시에서는 12개 routed expert 중 8개가 LRU cache hit다. 남은 4개 가운데 1개는 GPU로 옮기고 3개는 CPU에서 계산한다. 두 partial output은 마지막에 정확히 합쳐진다. 출처: FreeToken Figure 2 일부.*
 
@@ -307,7 +307,7 @@ Startup도 줄인다. FreeToken Weight(FTW) format은 model별 checkpoint를 run
 
 논문은 RTX 4060 laptop부터 RTX PRO 6000 workstation까지 6개 system을 사용한다. PCIe bandwidth $B_P$와 CPU-side bandwidth $B_H$는 spec sheet가 아니라 실제 tensor shape로 측정했다.
 
-![FreeToken 실험에 사용한 hardware와 측정 bandwidth](/assets/images/blog/freetoken-test-systems.png)
+![FreeToken 실험에 사용한 hardware와 측정 bandwidth]({{ '/assets/images/blog/freetoken-test-systems.png' | relative_url }})
 
 *같은 GPU라도 host 구성이 다르면 $B_P$와 $B_H$의 균형이 달라진다. 5090 server와 5090 desktop을 별도로 비교한 이유다. 출처: FreeToken Table 1.*
 
@@ -332,7 +332,7 @@ Baseline은 llama.cpp, Ollama, KTransformers, MoE-Infinity다. Qwen3.6은 모든
 
 RTX 5090에서 Qwen3.6-35B-A3B와 DeepSeek-V4-Flash를 네 workload로 실행한 결과는 다음과 같다.
 
-![FreeToken end-to-end serving 결과](/assets/images/blog/freetoken-end-to-end-results.png)
+![FreeToken end-to-end serving 결과]({{ '/assets/images/blog/freetoken-end-to-end-results.png' | relative_url }})
 
 *위쪽은 decode throughput, 아래쪽은 mean TTFT다. × 표시는 해당 engine이 그 configuration을 실행하지 못했다는 뜻이다. 출처: FreeToken Figure 3.*
 
@@ -361,7 +361,7 @@ Agent client에는 idle watchdog 또는 request timeout이 있다. 따라서 tai
 
 ## 11. 어떤 설계가 성능을 만들었는가
 
-![FreeToken prefill pipeline과 expert cache miss 분석](/assets/images/blog/freetoken-prefill-cache-breakdown.png)
+![FreeToken prefill pipeline과 expert cache miss 분석]({{ '/assets/images/blog/freetoken-prefill-cache-breakdown.png' | relative_url }})
 
 *왼쪽은 prompt 길이에 따른 prefill throughput, 오른쪽은 expert cache 크기에 따른 decode miss rate다. 출처: FreeToken Figure 4.*
 
@@ -384,7 +384,7 @@ Prefill에서 선택한 placement보다 decode 중 실제 route를 계속 따라
 
 ## 12. 작은 laptop부터 753B model까지
 
-![FreeToken의 hardware별 coding-agent decode throughput](/assets/images/blog/freetoken-cross-hardware-decode.png)
+![FreeToken의 hardware별 coding-agent decode throughput]({{ '/assets/images/blog/freetoken-cross-hardware-decode.png' | relative_url }})
 
 *RTX 4060 laptop부터 RTX 5090까지는 Qwen3.6 coding-agent workload, RTX PRO 6000은 GLM-5.2 math workload 결과다. 마지막 열은 별도의 frontier-scale demonstration이므로 앞 열과 model/workload가 다르다. 출처: FreeToken Figure 5.*
 
@@ -392,7 +392,7 @@ Figure 5의 다섯 consumer system에서는 같은 OpenCode workload로 Qwen3.6�
 
 이 수치는 논문이 인용한 production Codex trace의 median decode speed 33 tok/s보다 높다. 다만 서로 다른 모델, 서비스 환경, 측정 조건을 비교한 참고선이므로 “Codex보다 모델이 빠르다”는 품질 또는 end-to-end 비교로 해석하면 안 된다.
 
-![각 hardware tier에서 실행 가능한 가장 강한 모델의 agentic decode speed](/assets/images/blog/freetoken-agentic-decode-speed.png)
+![각 hardware tier에서 실행 가능한 가장 강한 모델의 agentic decode speed]({{ '/assets/images/blog/freetoken-agentic-decode-speed.png' | relative_url }})
 
 *각 hardware tier에서 그 장비가 수용할 수 있는 모델을 선택한 결과다. RTX 4060 laptop은 Qwen3.6-35B, RTX 5090 desktop은 DeepSeek-V4-Flash 284B, RTX PRO 6000은 GLM-5.2 753B를 사용하므로 세 막대를 같은 모델의 hardware scaling 결과로 읽으면 안 된다. 출처: FreeToken Figure 1(b) 일부.*
 

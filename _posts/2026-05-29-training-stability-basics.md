@@ -27,10 +27,10 @@ $$
 
 Activation function은 이 비선형성을 넣어주는 역할을 한다.
 
-![activation functions](/assets/images/blog/activation-functions.png)
+![activation functions]({{ '/assets/images/blog/activation-functions.png' | relative_url }})
 
 ## Sigmoid
-![sigmoid](/assets/images/blog/sigmoid.png)
+![sigmoid]({{ '/assets/images/blog/sigmoid.png' | relative_url }})
 
 Sigmoid는 출력을 0과 1 사이로 만든다.
 
@@ -44,12 +44,12 @@ $$
 ## Tanh
 
 Tanh는 출력을 -1과 1 사이로 만든다.
-![tanh](/assets/images/blog/tanh.png)
+![tanh]({{ '/assets/images/blog/tanh.png' | relative_url }})
 
 Sigmoid보다 출력 중심이 0에 가까워 학습이 조금 더 잘 될 수 있다. 하지만 여전히 vanishing gradient 문제가 있다.
 
 ## ReLU
-![relu](/assets/images/blog/relu.png)
+![relu]({{ '/assets/images/blog/relu.png' | relative_url }})
 
 ReLU는 딥러닝에서 가장 널리 쓰이는 activation function이다.
 
@@ -63,7 +63,7 @@ $$
 
 ## Leaky ReLU
 
-![leaky relu](/assets/images/blog/leaky-relu.png)
+![leaky relu]({{ '/assets/images/blog/leaky-relu.png' | relative_url }})
 
 Leaky ReLU는 ReLU의 dead neuron 문제를 완화하기 위해 음수 구간에도 작은 기울기를 남긴다.
 
@@ -85,8 +85,8 @@ Variance는 예측값이 얼마나 흩어져 있는지를 의미한다. Variance
 
 모델이 너무 단순하면 bias가 커지고 underfitting이 발생한다. 반대로 모델이 너무 복잡하면 variance가 커지고 overfitting이 발생한다.
 
-![bias variance curves](/assets/images/blog/bias-variance-curves.png)
-![bias variance target](/assets/images/blog/bias-variance-target.png)
+![bias variance curves]({{ '/assets/images/blog/bias-variance-curves.png' | relative_url }})
+![bias variance target]({{ '/assets/images/blog/bias-variance-target.png' | relative_url }})
 
 정리하면 다음과 같다.
 

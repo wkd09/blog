@@ -13,7 +13,7 @@ tags:
 이미지가 필요하면 `assets/images/blog`에 `kebab-case.png`처럼 정리하고 아래처럼 넣는다.
 
 ```md
-![이미지 설명](/assets/images/blog/example-image.png)
+![이미지 설명]({{ '/assets/images/blog/example-image.png' | relative_url }})
 ```
 
 ## 1. 문제 상황

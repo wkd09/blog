@@ -29,7 +29,7 @@ FlashAttention 논문의 핵심은 간단하다.
 
 즉 FlashAttention-1은 sparse attention이나 linear attention처럼 attention 자체를 근사하는 방법이 아니다. 결과는 standard attention과 같고, 계산 순서와 memory access 방식을 바꾼다.
 
-![FlashAttention 원문 Figure: runtime과 sparsity speedup](/assets/images/blog/flashattention-paper-figure.png)
+![FlashAttention 원문 Figure: runtime과 sparsity speedup]({{ '/assets/images/blog/flashattention-paper-figure.png' | relative_url }})
 
 *원 논문 Figure 2는 standard attention과 FlashAttention의 HBM access, runtime 차이를 보여준다.*
 
@@ -112,7 +112,7 @@ for each K_j, V_j block:
 
 즉 FlashAttention은 attention score 전체를 저장하는 대신, softmax를 이어서 계산하는 데 필요한 작은 통계만 저장한다.
 
-![FlashAttention의 memory hierarchy와 IO-aware attention 구조](/assets/images/blog/flashattn.png)
+![FlashAttention의 memory hierarchy와 IO-aware attention 구조]({{ '/assets/images/blog/flashattn.png' | relative_url }})
 
 *FlashAttention은 Q, K, V block을 SRAM에 올려 계산하고, `N x N` attention matrix를 HBM에 materialize하지 않는다.*
 

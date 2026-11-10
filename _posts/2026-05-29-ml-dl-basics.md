@@ -11,8 +11,8 @@ tags:
 source: "Notion PDF Export - ML/DL"
 ---
 
-![deep neural network](/assets/images/blog/deep-neural-network.png)
-![neural network](/assets/images/blog/neural-network.png)
+![deep neural network]({{ '/assets/images/blog/deep-neural-network.png' | relative_url }})
+![neural network]({{ '/assets/images/blog/neural-network.png' | relative_url }})
 
 머신러닝은 데이터를 이용해 알고리즘이 스스로 규칙을 학습하고, 이를 바탕으로 판단이나 예측을 수행하는 기술이다.
 

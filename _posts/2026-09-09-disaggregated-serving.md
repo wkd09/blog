@@ -29,7 +29,7 @@ LLM inference server는 하나의 요청을 받아 prompt를 읽고, 첫 token�
 
 [NVIDIA의 설명](https://www.nvidia.com/en-us/glossary/disaggregated-serving/)처럼 **Disaggregated Serving**은 두 단계를 전용 GPU 또는 worker pool로 분리하고, 각 단계에 맞는 자원과 scaling 정책을 적용하는 아키텍처다.
 
-![Traditional Serving과 Disaggregated Serving의 Prefill·Decode 실행 구조 비교](/assets/images/blog/disaggregated-serving-nvidia-overview.png)
+![Traditional Serving과 Disaggregated Serving의 Prefill·Decode 실행 구조 비교]({{ '/assets/images/blog/disaggregated-serving-nvidia-overview.png' | relative_url }})
 
 *Traditional serving은 같은 GPU group에서 prefill과 decode를 처리한다. Disaggregated serving은 compute-bound prefill과 memory-bound decode를 전용 GPU group으로 분리하고 KV cache를 전달한다. 출처: [NVIDIA, What Is Disaggregated Serving?](https://www.nvidia.com/en-us/glossary/disaggregated-serving/)*
 
@@ -48,7 +48,7 @@ Request -> Router -> [ Prefill worker ]
                        [ Decode worker ] -> Response
 ```
 
-![통합형 LLM 서빙과 Prefill·Decode 분리형 서빙 아키텍처 비교](/assets/images/blog/disaggregated-serving-architecture.svg)
+![통합형 LLM 서빙과 Prefill·Decode 분리형 서빙 아키텍처 비교]({{ '/assets/images/blog/disaggregated-serving-architecture.svg' | relative_url }})
 
 *같은 개념을 단순화한 구조도다. 통합형은 하나의 GPU pool에서 두 단계가 자원을 공유하고, 분리형은 KV cache를 전달하며 각 pool을 독립적으로 확장한다. 직접 만든 개념도.*
 
@@ -111,7 +111,7 @@ Prefill을 크게 실행 -> compute 효율 증가, decode ITL 악화 가능
 Decode를 자주 실행  -> streaming 안정, prefill TTFT·throughput 악화 가능
 ```
 
-![통합형과 분리형 LLM 서빙의 GPU utilization 패턴 개념도](/assets/images/blog/disaggregated-serving-gpu-utilization.svg)
+![통합형과 분리형 LLM 서빙의 GPU utilization 패턴 개념도]({{ '/assets/images/blog/disaggregated-serving-gpu-utilization.svg' | relative_url }})
 
 *통합형에서는 긴 prefill이 decode scheduling과 간섭할 수 있다. 역할별 pool을 분리하면 각 workload에 맞춰 GPU를 배치할 수 있다. 실제 utilization은 model, batch, traffic, scheduler에 따라 달라지는 개념도다.*
 

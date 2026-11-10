@@ -31,7 +31,7 @@ GPTQ는 `post-training quantization`, 줄여서 `PTQ` 방법이다. 즉 원래 �
 
 > GPTQ는 layer output이 최대한 덜 변하도록 Hessian 기반 보정을 넣어 weight를 한 번에 3-4bit로 압축하는 LLM용 PTQ 알고리즘이다.
 
-![GPTQ perplexity comparison](/assets/images/blog/gptq-figure1-perplexity.png)
+![GPTQ perplexity comparison]({{ '/assets/images/blog/gptq-figure1-perplexity.png' | relative_url }})
 
 *논문 Figure 1. RTN은 낮은 bit에서 perplexity가 크게 무너지는 반면, GPTQ는 FP16 기준선에 훨씬 가깝게 유지된다.*
 
@@ -213,7 +213,7 @@ GPTQ는 column을 하나씩 처리하되, global update를 매번 하지 않는�
 
 이 방식은 이론적 연산량 자체를 크게 줄이는 것보다는 GPU에서 실행되는 형태를 좋게 만든다. 작은 update를 계속 날리는 대신, 더 큰 matrix 연산으로 묶어 GPU utilization을 높인다.
 
-![GPTQ quantization procedure](/assets/images/blog/gptq-figure2-procedure.png)
+![GPTQ quantization procedure]({{ '/assets/images/blog/gptq-figure2-procedure.png' | relative_url }})
 
 *논문 Figure 2. GPTQ는 block 단위로 weight column을 양자화하고, inverse Hessian 정보를 이용해 아직 양자화되지 않은 weight를 갱신한다.*
 
@@ -291,7 +291,7 @@ RTN과 비교하면 다음처럼 볼 수 있다.
 
 OPT family의 WikiText2 perplexity 결과는 GPTQ의 효과를 가장 잘 보여준다.
 
-![OPT WikiText2 table](/assets/images/blog/gptq-table3-opt-wikitext2.png)
+![OPT WikiText2 table]({{ '/assets/images/blog/gptq-table3-opt-wikitext2.png' | relative_url }})
 
 *논문 Table 3. OPT family의 WikiText2 perplexity. 낮을수록 좋다.*
 
@@ -317,7 +317,7 @@ OPT family의 WikiText2 perplexity 결과는 GPTQ의 효과를 가장 잘 보여
 
 BLOOM family에서도 패턴은 비슷하다.
 
-![BLOOM WikiText2 table](/assets/images/blog/gptq-table4-bloom-wikitext2.png)
+![BLOOM WikiText2 table]({{ '/assets/images/blog/gptq-table4-bloom-wikitext2.png' | relative_url }})
 
 *논문 Table 4. BLOOM family의 WikiText2 perplexity.*
 
@@ -339,7 +339,7 @@ BLOOM은 OPT보다 RTN 4bit가 덜 나쁘다. 하지만 3bit에서는 RTN이 여
 
 논문은 OPT-175B와 BLOOM-176B를 따로 모아 WikiText2, PTB, C4, LAMBADA 결과를 비교한다.
 
-![Large model summary table](/assets/images/blog/gptq-table5-large-models.png)
+![Large model summary table]({{ '/assets/images/blog/gptq-table5-large-models.png' | relative_url }})
 
 *논문 Table 5. OPT-175B와 BLOOM-176B 상세 결과. PPL은 낮을수록 좋고, LAMBADA는 높을수록 좋다.*
 
@@ -364,7 +364,7 @@ Perplexity는 language modeling 품질을 민감하게 보는 지표다. 하지�
 
 논문은 LAMBADA accuracy도 비교한다.
 
-![LAMBADA accuracy](/assets/images/blog/gptq-figure3-lambada.png)
+![LAMBADA accuracy]({{ '/assets/images/blog/gptq-figure3-lambada.png' | relative_url }})
 
 *논문 Figure 3. LAMBADA accuracy에서도 GPTQ는 RTN보다 안정적이다.*
 
@@ -416,7 +416,7 @@ GPU 메모리에서 얼마나 읽고 쓰는지가 실제 속도를 좌우한다.
 
 GPTQ는 기본 row-wise quantization만 쓸 수도 있지만, grouping과도 잘 맞는다.
 
-![GPTQ group size](/assets/images/blog/gptq-figure4-group-size.png)
+![GPTQ group size]({{ '/assets/images/blog/gptq-figure4-group-size.png' | relative_url }})
 
 *논문 Figure 4. group size를 줄이면 medium-size OPT 모델에서도 4bit GPTQ의 perplexity가 FP16에 더 가까워진다.*
 

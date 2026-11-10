@@ -148,7 +148,7 @@ $$
 
 Dynamic HyperNetwork에서는 `W_h`, `W_x`, `b`가 고정되어 있지 않다. 작은 recurrent hypernetwork가 현재 상태를 보고 이 weight들을 생성하거나 조정한다.
 
-![HyperRNN overview](/assets/images/blog/hypernetworks-hyperrnn-overview.png)
+![HyperRNN overview]({{ '/assets/images/blog/hypernetworks-hyperrnn-overview.png' | relative_url }})
 
 *검은색은 main RNN/LSTM, 주황색은 hypernetwork다. Hypernetwork는 현재 input과 hidden state를 보고 main network의 weight 조정 신호를 만든다.*
 
@@ -296,7 +296,7 @@ HyperLSTM은 단순히 LSTM unit 수를 늘린 것보다 좋은 성능을 보인
 
 HyperLSTM은 Layer Norm LSTM보다 좋은 BPC를 얻고, Layer Norm과 결합하면 더 좋아진다.
 
-![HyperNetworks loss curves](/assets/images/blog/hypernetworks-loss-curves.png)
+![HyperNetworks loss curves]({{ '/assets/images/blog/hypernetworks-loss-curves.png' | relative_url }})
 
 *왼쪽은 enwik8 validation BPC, 오른쪽은 handwriting generation validation log-loss다. HyperLSTM 계열은 기본 LSTM보다 빠르게 낮은 loss로 수렴한다.*
 
@@ -306,7 +306,7 @@ HyperLSTM은 Layer Norm LSTM보다 좋은 BPC를 얻고, Layer Norm과 결합하
 
 논문에서 특히 흥미로운 그림은 hidden state의 histogram이다.
 
-![Hidden state histogram](/assets/images/blog/hypernetworks-hidden-state-histogram.png)
+![Hidden state histogram]({{ '/assets/images/blog/hypernetworks-hidden-state-histogram.png' | relative_url }})
 
 *LSTM, Layer Norm LSTM, HyperLSTM, Layer Norm HyperLSTM의 hidden state 분포 비교. HyperLSTM은 Layer Norm과 비슷한 성능을 내지만 내부 분포는 꽤 다르다.*
 
@@ -324,7 +324,7 @@ Layer Norm LSTM은 saturation을 줄이는 방향으로 작동한다. activation
 
 논문은 IAM Online Handwriting Database에서도 HyperLSTM을 평가한다. 이 task는 pen의 `(x, y)` 좌표와 pen-up/pen-down 신호를 예측하는 sequence generation 문제다.
 
-![Handwriting table](/assets/images/blog/hypernetworks-handwriting-table.png)
+![Handwriting table]({{ '/assets/images/blog/hypernetworks-handwriting-table.png' | relative_url }})
 
 *IAM Online DB validation log-loss. HyperLSTM은 가장 낮은 log-loss를 기록한다.*
 

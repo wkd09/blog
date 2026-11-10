@@ -18,7 +18,7 @@ source: "arXiv:2106.09685"
 
 논문의 핵심은 간단하다. 큰 사전학습 모델 전체를 fine-tuning하지 말고, 원래 weight는 고정한 채 작은 low-rank 행렬만 학습해도 downstream task에 잘 적응할 수 있다는 것이다. LoRA는 이를 통해 학습 파라미터 수와 GPU 메모리 사용량을 크게 줄이면서도 inference latency를 늘리지 않는 방법을 제안한다.
 
-![LoRA 원문 Figure: 저랭크 재파라미터화](/assets/images/blog/lora-paper-figure.png)
+![LoRA 원문 Figure: 저랭크 재파라미터화]({{ '/assets/images/blog/lora-paper-figure.png' | relative_url }})
 
 *출처: 논문 Figure 1. LoRA는 고정된 pre-trained weight 옆에 학습 가능한 low-rank 행렬 A와 B를 추가한다.*
 
@@ -65,7 +65,7 @@ W0는 고정
 출력은 W0x + BAx
 ```
 
-![lora overview](/assets/images/blog/lora.png)
+![lora overview]({{ '/assets/images/blog/lora.png' | relative_url }})
 
 *LoRA는 pre-trained weight를 고정하고, low-rank update branch만 학습한다.*
 
@@ -83,7 +83,7 @@ W0는 고정
 
 LoRA가 비교하는 대표적인 방법은 adapter와 prefix tuning이다.
 
-![lora vs adapter vs prefix tuning](/assets/images/blog/lorascore.png)
+![lora vs adapter vs prefix tuning]({{ '/assets/images/blog/lorascore.png' | relative_url }})
 
 *Adapter는 모델 내부에 작은 layer를 추가하고, prefix tuning은 입력 앞에 학습 가능한 prefix를 붙이며, LoRA는 weight update를 low-rank matrix로 표현한다.*
 

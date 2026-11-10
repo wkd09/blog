@@ -143,7 +143,7 @@ Frontend는 여러 LLM 호출과 branch를 하나의 프로그램으로 표현�
  └─ [사실성 평가]
 ```
 
-![SGLang의 fork와 gen을 사용한 다차원 에세이 평가 예시](/assets/images/blog/sglang-essay-judge-example.png)
+![SGLang의 fork와 gen을 사용한 다차원 에세이 평가 예시]({{ '/assets/images/blog/sglang-essay-judge-example.png' | relative_url }})
 
 *SGLang frontend는 하나의 essay state를 `fork`해 clarity, originality, evidence 관점의 평가를 병렬로 생성한다. RadixAttention은 각 branch가 공유하는 essay와 평가 지침의 KV cache를 backend에서 재사용할 수 있다. 출처: LMSYS SGLang 소개 글 Figure 5.*
 
@@ -333,7 +333,7 @@ SGLang은 prompt token뿐 아니라 generation result의 KV도 tree에 유지할
 
 LMSYS의 RadixAttention 소개 글은 chat, few-shot learning과 self-consistency 요청이 섞인 상황에서 radix tree가 아홉 단계에 걸쳐 변하는 예시를 보여준다. 앞에서 본 token 예제를 실제 LLM workload로 확장한 흐름이다.
 
-![요청 처리에 따라 분기, 재사용, 축출되는 RadixAttention tree의 9단계 변화](/assets/images/blog/radix-attention-tree-lifecycle.png)
+![요청 처리에 따라 분기, 재사용, 축출되는 RadixAttention tree의 9단계 변화]({{ '/assets/images/blog/radix-attention-tree-lifecycle.png' | relative_url }})
 
 *초록색 node는 새로 추가된 cache, 파란색 node는 해당 단계에서 다시 사용된 cache, 주황색 점선과 X는 memory pressure로 축출된 경로를 나타낸다. 출처: LMSYS SGLang 소개 글 Figure 4.*
 
@@ -517,7 +517,7 @@ RadixAttention만 활성화했다고 multi-replica 환경의 cache locality가 �
 
 Radix tree는 단일 system prompt 공유뿐 아니라 여러 단계로 분기되는 workload를 표현할 수 있다.
 
-![Few-shot, self-consistency, multi-turn chat, tree-of-thought의 KV cache 공유 패턴](/assets/images/blog/radix-attention-kv-sharing-patterns.png)
+![Few-shot, self-consistency, multi-turn chat, tree-of-thought의 KV cache 공유 패턴]({{ '/assets/images/blog/radix-attention-kv-sharing-patterns.png' | relative_url }})
 
 *파란색은 여러 호출에서 재사용할 수 있는 prefix, 초록색은 요청마다 달라지는 입력, 노란색은 각 branch에서 생성된 output을 나타낸다. 서로 다른 네 workload도 공통 prefix와 branch의 조합으로 표현할 수 있다. 출처: SGLang 논문 Figure 3.*
 
@@ -632,7 +632,7 @@ SGLang은 cache reuse 외에도 frontend parallelism, batching과 structured out
 
 SGLang 논문은 여러 benchmark에서 기존 시스템보다 최대 `6.4x` 높은 throughput과 최대 `3.7x`의 latency 개선을 보고했다. 하지만 이 수치는 RadixAttention 하나만의 성능이 아니다.
 
-![vLLM 대비 SGLang의 workload별 normalized throughput](/assets/images/blog/sglang-normalized-throughput.png)
+![vLLM 대비 SGLang의 workload별 normalized throughput]({{ '/assets/images/blog/sglang-normalized-throughput.png' | relative_url }})
 
 *Workload별 처리량을 SGLang 기준 1로 정규화한 비교다. Shared prefix 구조와 다른 runtime 최적화의 영향이 workload마다 달라 vLLM과의 차이도 일정하지 않다. 이 그래프는 SGLang 전체 system 비교이며 RadixAttention 단독 ablation이 아니다. 출처: SGLang 논문 Figure 5 기반.*
 

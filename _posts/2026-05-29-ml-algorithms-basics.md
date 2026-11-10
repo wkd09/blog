@@ -12,7 +12,7 @@ tags:
 source: "Notion PDF Export - Algorithm"
 ---
 
-![Scikit-learn decision tree example](/assets/images/blog/ml-algorithms.png)
+![Scikit-learn decision tree example]({{ '/assets/images/blog/ml-algorithms.png' | relative_url }})
 
 <small>Image: [Wikimedia Commons - Scikit-learn machine learning decision tree](https://commons.wikimedia.org/wiki/Special:FilePath/Scikit-learn_machine_learning_decision_tree.png)</small>
 

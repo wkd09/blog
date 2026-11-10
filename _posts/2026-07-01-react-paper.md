@@ -32,7 +32,7 @@ source: "arXiv:2210.03629"
 
 ReAct는 이 둘을 분리하지 않는다. LLM이 `Thought`, `Action`, `Observation`을 번갈아 생성하게 만들어, reasoning이 action을 안내하고 action 결과가 다시 reasoning을 보정하게 한다.
 
-![ReAct Figure 1 overview](/assets/images/blog/react-fig1-overview.png)
+![ReAct Figure 1 overview]({{ '/assets/images/blog/react-fig1-overview.png' | relative_url }})
 
 *출처: 논문 Figure 1. ReAct는 reasoning trace와 action을 번갈아 생성하면서 HotpotQA와 ALFWorld에서 더 안정적으로 문제를 해결한다.*
 
@@ -344,7 +344,7 @@ LLM
 
 논문은 knowledge-intensive reasoning task로 HotpotQA와 FEVER를 사용했다.
 
-![ReAct HotpotQA FEVER results](/assets/images/blog/react-table-hotpot-fever.png)
+![ReAct HotpotQA FEVER results]({{ '/assets/images/blog/react-table-hotpot-fever.png' | relative_url }})
 
 *출처: 논문 Table 1. ReAct 단독은 항상 최고는 아니지만, Act-only보다 안정적이고 CoT-SC와 결합할 때 강해진다.*
 
@@ -368,7 +368,7 @@ LLM
 
 셋째, ReAct와 CoT-SC를 결합하면 가장 강해진다. CoT-SC는 내부 reasoning 다양성을 활용하고, ReAct는 외부 정보로 grounding한다. 논문은 두 방식의 실패 양상이 다르기 때문에 결합 효과가 난다고 본다.
 
-![CoT-SC and ReAct combination](/assets/images/blog/react-cotsc-trials.png)
+![CoT-SC and ReAct combination]({{ '/assets/images/blog/react-cotsc-trials.png' | relative_url }})
 
 *출처: 논문 Figure 3. CoT-SC와 ReAct를 결합하면 단일 방법보다 더 높은 성능을 낼 수 있다.*
 
@@ -376,7 +376,7 @@ LLM
 
 논문 Table 2의 failure analysis는 ReAct의 장단점을 잘 보여준다.
 
-![ReAct failure analysis](/assets/images/blog/react-failure-analysis.png)
+![ReAct failure analysis]({{ '/assets/images/blog/react-failure-analysis.png' | relative_url }})
 
 *출처: 논문 Table 2. CoT는 hallucination 실패가 많고, ReAct는 search result error와 reasoning error가 주요 실패 원인이다.*
 
@@ -406,7 +406,7 @@ CoT는 내부 기억에 의존한다. 그래서 그럴듯하지만 틀린 사실
 
 ReAct가 유용한 대표 상황은 모델 내부 지식이 오래되었을 때다.
 
-![ReAct updated knowledge example](/assets/images/blog/react-hotpot-updated.png)
+![ReAct updated knowledge example]({{ '/assets/images/blog/react-hotpot-updated.png' | relative_url }})
 
 *출처: 논문 Figure 4. ReAct는 검색을 통해 outdated label과 다른 최신 정보를 반영할 수 있다.*
 
@@ -448,13 +448,13 @@ countertop을 찾아보자.
 
 여기서 Thought는 단순 설명이 아니라 탐색 정책이다. 논문은 decision making task에서 thought가 목표 분해, 진행 상황 추적, 다음 subgoal 결정, 상식 기반 추론에 쓰인다고 설명한다.
 
-![ReAct ALFWorld human thought edit](/assets/images/blog/react-alfworld-edit.png)
+![ReAct ALFWorld human thought edit]({{ '/assets/images/blog/react-alfworld-edit.png' | relative_url }})
 
 *출처: 논문 Figure 5. ALFWorld에서는 thought가 탐색 전략, 상태 추적, 다음 subgoal 결정에 직접 영향을 준다.*
 
 ALFWorld 결과에서도 ReAct는 전체 성공률에서 Act-only와 BUTLER baseline보다 좋은 성능을 보였다.
 
-![ReAct ALFWorld results](/assets/images/blog/react-alfworld-results.png)
+![ReAct ALFWorld results]({{ '/assets/images/blog/react-alfworld-results.png' | relative_url }})
 
 *출처: 논문 Table 3. ReAct는 여러 ALFWorld task에서 강한 성능을 보인다.*
 
@@ -462,7 +462,7 @@ ALFWorld 결과에서도 ReAct는 전체 성공률에서 Act-only와 BUTLER base
 
 논문은 ReAct를 prompting으로만 쓰지 않고, ReAct trajectory를 이용한 fine-tuning도 실험했다.
 
-![ReAct fine-tuning results](/assets/images/blog/react-finetuning.png)
+![ReAct fine-tuning results]({{ '/assets/images/blog/react-finetuning.png' | relative_url }})
 
 *출처: 논문 Figure 6. Prompting에서는 큰 모델이 유리하지만, ReAct trajectory로 fine-tuning하면 작은 모델도 강해진다.*
 

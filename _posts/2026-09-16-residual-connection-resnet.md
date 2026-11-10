@@ -29,7 +29,7 @@ $$
 
 하지만 일반적인 plain network는 항등함수조차 잘 학습하지 못할 수 있다. 특히 convolution과 ReLU 같은 비선형 연산을 여러 번 통과하면서, 추가한 레이어를 “아무 변화도 만들지 않는 층”으로 만드는 최적화가 쉽지 않다.
 
-![20층과 56층 plain network의 학습 및 테스트 오류](/assets/images/blog/resnet-degradation-20-vs-56.png)
+![20층과 56층 plain network의 학습 및 테스트 오류]({{ '/assets/images/blog/resnet-degradation-20-vs-56.png' | relative_url }})
 
 위 그래프에서 56층 plain network는 20층 모델보다 training error와 test error가 모두 높다. 이는 test 성능만 나빠지는 overfitting과 다르다. **훈련 데이터에도 더 잘 맞추지 못하는 최적화 문제**가 degradation problem이다.
 
@@ -43,7 +43,7 @@ Residual block은 입력을 두 갈래로 보낸다.
 2. **skip 경로**: 입력 $x$를 변형하지 않고 블록 끝까지 전달한다.
 3. **합산**: 두 경로의 값을 원소별로 더해 $F(x)+x$를 만든다.
 
-![Residual block: 변환 경로 F(x)와 identity skip 경로 x](/assets/images/blog/resnet-residual-block.png)
+![Residual block: 변환 경로 F(x)와 identity skip 경로 x]({{ '/assets/images/blog/resnet-residual-block.png' | relative_url }})
 
 입력과 출력의 차원이 같다면 skip 경로에는 학습 파라미터가 필요 없다. 채널 수나 spatial size가 달라 직접 더할 수 없을 때는 $W_s$로 입력을 projection한다.
 
@@ -79,7 +79,7 @@ $$
 
 ## Plain network와 ResNet의 차이
 
-![plain-18과 plain-34, ResNet-18과 ResNet-34의 오류 비교](/assets/images/blog/resnet-plain-vs-resnet-errors.png)
+![plain-18과 plain-34, ResNet-18과 ResNet-34의 오류 비교]({{ '/assets/images/blog/resnet-plain-vs-resnet-errors.png' | relative_url }})
 
 왼쪽의 plain network에서는 34층이 18층보다 높은 오류를 보인다. 깊이를 추가했지만 최적화가 더 어려워진 것이다.
 
@@ -87,7 +87,7 @@ $$
 
 ## ImageNet에서의 결과
 
-![ImageNet 분류 오류 비교 표](/assets/images/blog/resnet-imagenet-results.png)
+![ImageNet 분류 오류 비교 표]({{ '/assets/images/blog/resnet-imagenet-results.png' | relative_url }})
 
 ResNet은 ImageNet 대규모 이미지 분류에서 당시 대표 모델이던 VGG와 GoogLeNet 계열을 앞섰다. 표의 ResNet-152는 top-1 error **19.38%**, top-5 error **4.49%**를 기록했다.
 

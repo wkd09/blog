@@ -64,7 +64,7 @@ Quest 같은 sequence compression은 query와 block key의 score를 계산한 �
 
 MosaicKV는 KV cache를 시간 순서의 여러 segment로 나눈다. 그리고 각 segment에 대해 K와 V를 따로 회전하고, channel 압축률·원소 묶음 크기·token block 크기를 고른다.
 
-![MosaicKV의 동적 2차원 압축 과정](/assets/images/blog/mosaickv-dynamic-two-d-compression.png)
+![MosaicKV의 동적 2차원 압축 과정]({{ '/assets/images/blog/mosaickv-dynamic-two-d-compression.png' | relative_url }})
 
 *각 segment는 별도의 SVD rotation과 channel/sequence 압축 전략을 사용한다. 출처: MosaicKV 논문 Figure 5.*
 
