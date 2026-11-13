@@ -1,7 +1,7 @@
 main:
-  - title: "논문"
+  - title: "Research"
     url: /research/
-  - title: "공부"
+  - title: "Study"
     url: /study/
-  - title: "구현"
+  - title: "Engineering"
     url: /engineering/

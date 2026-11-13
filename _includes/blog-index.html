@@ -1,0 +1,40 @@
+{% assign archive_posts = site.posts %}
+{% if page.category_key %}
+  {% assign archive_posts = site.categories[page.category_key] %}
+{% endif %}
+
+<main id="main" class="blog-index">
+  <header class="blog-index__intro">
+    {% if page.category_key %}
+      <h1>{{ page.title }}<span>.</span></h1>
+      <p>{{ page.description }}</p>
+    {% else %}
+      <h1>Junmin’s Notes<span>.</span></h1>
+      <p>AI, LLM &amp; Systems</p>
+    {% endif %}
+  </header>
+  <nav class="blog-index__legend" aria-label="Post categories">
+    <a href="{{ '/' | relative_url }}"{% unless page.category_key %} aria-current="page"{% endunless %}>All posts</a>
+    <a href="{{ '/research/' | relative_url }}"{% if page.category_key == 'research' %} aria-current="page"{% endif %}><span class="blog-index__swatch blog-index__swatch--research" aria-hidden="true"></span>Research</a>
+    <a href="{{ '/study/' | relative_url }}"{% if page.category_key == 'study' %} aria-current="page"{% endif %}><span class="blog-index__swatch blog-index__swatch--study" aria-hidden="true"></span>Study</a>
+    <a href="{{ '/engineering/' | relative_url }}"{% if page.category_key == 'engineering' %} aria-current="page"{% endif %}><span class="blog-index__swatch blog-index__swatch--engineering" aria-hidden="true"></span>Engineering</a>
+  </nav>
+
+  <section class="blog-index__posts" aria-label="Posts">
+    {% for post in archive_posts %}
+      {% assign category = post.categories | first %}
+      {% case category %}
+        {% when 'research' %}{% assign category_label = 'Research' %}
+        {% when 'study' %}{% assign category_label = 'Study' %}
+        {% when 'engineering' %}{% assign category_label = 'Engineering' %}
+        {% else %}{% assign category_label = category | default: 'Other' %}
+      {% endcase %}
+      <a class="blog-index__entry blog-index__entry--{{ category | default: 'other' | slugify }}" href="{{ post.url | relative_url }}">
+        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: site.date_format }}</time>
+        <span class="blog-index__title"><span class="visually-hidden">{{ category_label }}: </span>{{ post.title }}</span>
+      </a>
+    {% else %}
+      <p>No posts yet.</p>
+    {% endfor %}
+  </section>
+</main>

@@ -18,14 +18,14 @@ author_profile: true
 </section>
 
 <nav class="category-overview" aria-label="카테고리 바로가기">
-  <a class="category-pill category-pill--study" href="#study">공부 <span>{{ study_count }}</span></a>
-  <a class="category-pill category-pill--engineering" href="#engineering">구현 <span>{{ engineering_count }}</span></a>
-  <a class="category-pill category-pill--research" href="#research">논문 <span>{{ research_count }}</span></a>
+  <a class="category-pill category-pill--study" href="#study">Study <span>{{ study_count }}</span></a>
+  <a class="category-pill category-pill--engineering" href="#engineering">Engineering <span>{{ engineering_count }}</span></a>
+  <a class="category-pill category-pill--research" href="#research">Research <span>{{ research_count }}</span></a>
 </nav>
 
 <section id="study" class="category-section">
   <div class="category-section__heading">
-    <h2>공부</h2>
+    <h2>Study</h2>
     <span>{{ study_count }}개의 글</span>
   </div>
 
@@ -45,7 +45,7 @@ author_profile: true
 
 <section id="engineering" class="category-section">
   <div class="category-section__heading">
-    <h2>구현</h2>
+    <h2>Engineering</h2>
     <span>{{ engineering_count }}개의 글</span>
   </div>
 
@@ -65,7 +65,7 @@ author_profile: true
 
 <section id="research" class="category-section">
   <div class="category-section__heading">
-    <h2>논문</h2>
+    <h2>Research</h2>
     <span>{{ research_count }}개의 글</span>
   </div>
 

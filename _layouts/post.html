@@ -12,7 +12,14 @@ layout: default
 {% endif %}
 
 <div id="main" role="main">
-  {% include sidebar.html locale=locale %}
+  {% if page.toc %}
+    <aside class="post-toc{% if page.toc_sticky %} post-toc--sticky{% endif %}" aria-label="Contents">
+      <nav class="toc">
+        <h2 class="post-toc__title">{% if page.toc_label and page.toc_label != '목차' %}{{ page.toc_label }}{% else %}Contents{% endif %}</h2>
+        {% include toc.html sanitize=true html=content h_min=2 h_max=6 class="toc__menu" skip_no_ids=true %}
+      </nav>
+    </aside>
+  {% endif %}
 
   <article class="page page--post h-entry" itemscope itemtype="https://schema.org/CreativeWork"{% if page.locale %} lang="{{ page.locale }}"{% endif %}>
     {% if page.title %}<meta itemprop="headline" content="{{ page.title | replace: '|', '&#124;' | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
@@ -25,12 +32,12 @@ layout: default
         {% if page.categories.size > 0 %}
           {% assign category = page.categories | first %}
           {% case category %}
-            {% when "study" %}{% assign category_label = "공부" %}
-            {% when "engineering" %}{% assign category_label = "구현" %}
-            {% when "research" %}{% assign category_label = "논문" %}
-            {% else %}{% assign category_label = category %}
+            {% when "study" %}{% assign category_label = "Study" %}{% assign category_url = '/study/' %}
+            {% when "engineering" %}{% assign category_label = "Engineering" %}{% assign category_url = '/engineering/' %}
+            {% when "research" %}{% assign category_label = "Research" %}{% assign category_url = '/research/' %}
+            {% else %}{% assign category_label = category %}{% assign category_slug = category | slugify %}{% assign category_url = site.category_archive.path | default: '/categories/' | append: '#' | append: category_slug %}
           {% endcase %}
-          <a class="post-header__category" href="{{ site.category_archive.path | default: '/categories/' | relative_url }}#{{ category | slugify }}">{{ category_label }}</a>
+          <a class="post-header__category post-header__category--{{ category | slugify }}" href="{{ category_url | relative_url }}">{{ category_label }}</a>
         {% endif %}
 
         {% if page.title %}
@@ -39,24 +46,22 @@ layout: default
           </h1>
         {% endif %}
 
+        {% if page.summary %}
+          <p class="post-header__description">{{ page.summary | strip_html }}</p>
+        {% endif %}
+
         <div class="post-header__meta">
           <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: site.date_format }}</time>
           <span aria-hidden="true">·</span>
-          <span>{% if words < words_per_minute %}1분 미만{% else %}약 {{ words | divided_by: words_per_minute }}분{% endif %}</span>
+          <span>{% if words < words_per_minute %}less than 1 min read{% else %}{{ words | divided_by: words_per_minute }} min read{% endif %}</span>
         </div>
       </header>
 
       <section class="page__content e-content" itemprop="text">
         {% if page.toc %}
-          <aside class="sidebar__right {% if page.toc_sticky %}sticky{% endif %}">
-            <nav class="toc" aria-label="목차">
-              <header><h4 class="nav__title"><i class="fas fa-{{ page.toc_icon | default: 'file-alt' }}"></i> {{ page.toc_label | default: site.data.ui-text[locale].toc_label | default: "On this page" }}</h4></header>
-              {% include toc.html sanitize=true html=content h_min=2 h_max=6 class="toc__menu" skip_no_ids=true %}
-            </nav>
-          </aside>
           <details class="toc-mobile">
-            <summary>목차 보기</summary>
-            <nav class="toc-mobile__nav" aria-label="모바일 목차">
+            <summary>Contents</summary>
+            <nav class="toc-mobile__nav" aria-label="Contents">
               {% include toc.html sanitize=true html=content h_min=2 h_max=6 class="toc__menu" skip_no_ids=true %}
             </nav>
           </details>
@@ -69,29 +74,7 @@ layout: default
           {% capture article_content %}{% for part in title_parts offset: 1 %}{{ part }}{% unless forloop.last %}</h1>{% endunless %}{% endfor %}{% endcapture %}
         {% endif %}
 
-        {% if page.summary %}
-          {% assign summary = page.summary | strip_html | normalize_whitespace %}
-        {% else %}
-          {% assign first_paragraph = article_content | split: '</p>' | first %}
-          {% assign summary = first_paragraph | strip_html | normalize_whitespace %}
-        {% endif %}
-        {% if summary != "" %}
-          <aside class="key-summary" aria-labelledby="key-summary-title">
-            <p id="key-summary-title" class="key-summary__label">핵심 요약</p>
-            <p>{{ summary }}</p>
-          </aside>
-        {% endif %}
-
-        {% if page.summary %}
-          {{ article_content }}
-        {% elsif page.excerpt %}
-          {% assign content_parts = article_content | split: '</p>' %}
-          {% for part in content_parts offset: 1 %}
-            {{ part }}{% unless forloop.last %}</p>{% endunless %}
-          {% endfor %}
-        {% else %}
-          {{ article_content }}
-        {% endif %}
+        {{ article_content }}
 
         {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{ site.data.ui-text[locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
       </section>

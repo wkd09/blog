@@ -10,11 +10,11 @@
         {% for category in post.categories %}
           {% case category %}
             {% when "study" %}
-              {% assign category_label = "공부" %}
+              {% assign category_label = "Study" %}
             {% when "engineering" %}
-              {% assign category_label = "구현" %}
+              {% assign category_label = "Engineering" %}
             {% when "research" %}
-              {% assign category_label = "논문" %}
+              {% assign category_label = "Research" %}
             {% else %}
               {% assign category_label = category %}
           {% endcase %}
